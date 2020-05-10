@@ -1,0 +1,81 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between center">
+  <div>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <app-game-room-player-token [player]="nominatedPlayer"></app-game-room-player-token>
+      <h2>Has Been Nominated</h2>
+    </div>
+
+    <div>
+      <div class="small-vote-label" fxLayout="row" fxLayoutAlign="space-between center">
+        <span>Votes Needed:</span>
+        <span>{{ gameStateHelper.votesNeededToExecute(roomService.getState() | async) }}</span>
+      </div>
+
+      <div class="small-vote-label" fxLayout="row" fxLayoutAlign="space-between center">
+        <span>Votes Available:</span>
+        <span>{{ gameStateHelper.votesAvailable(roomService.getState() | async) }}</span>
+      </div>
+
+      <div class="mt-20 current-vote" fxLayout="row" fxLayoutAlign="space-between center">
+        <span>Current Vote:</span>
+        <span
+          [ngClass]="{
+            'enough-votes':
+              gameStateHelper.totalHandsRaised(roomService.getState() | async) >=
+              gameStateHelper.votesNeededToExecute(roomService.getState() | async)
+          }"
+        >
+          {{ gameStateHelper.totalHandsRaised(roomService.getState() | async) }}
+        </span>
+      </div>
+
+      <div class="mt-10 current-vote" fxLayout="row" fxLayoutAlign="space-between center">
+        <span>Votes Tallied:</span>
+        <span
+          [ngClass]="{
+            'enough-votes':
+              (roomService.getState() | async).votingSchema?.voteCount >=
+              gameStateHelper.votesNeededToExecute(roomService.getState() | async)
+          }"
+        >
+          {{ (roomService.getState() | async).votingSchema?.voteCount }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-buttons">
+    <div
+      *ngIf="
+        gameStateHelper.isStoryteller(roomService.getRoom() | async) &&
+        (roomService.getState() | async).votingSchema?.votePhase === votePhaseEnum.PostVote
+      "
+      fxLayout="column"
+      fxLayoutGap="10px"
+    >
+      <label for="voteCount">Confirm Vote Count:</label>
+      <p-spinner id="voteCount" [(ngModel)]="confirmVotePayload.voteCount"></p-spinner>
+      <button pButton class="ui-button-success" label="Confirm" (click)="confirm()"></button>
+    </div>
+    <button
+      *ngIf="
+        !gameStateHelper.isStoryteller(roomService.getRoom() | async) &&
+        (roomService.getState() | async).votingSchema?.votePhase !== votePhaseEnum.PostVote
+      "
+      pButton
+      class="ui-button-danger mb-10"
+      [disabled]="(roomService.getState() | async).votingSchema?.votePhase === votePhaseEnum.PreVote"
+      [label]="gameStateHelper.currentPlayer(roomService.getRoom() | async).handRaised ? 'Retract Vote' : 'Vote Yea'"
+      (click)="toggleHand()"
+    ></button>
+    <button
+      *ngIf="
+        gameStateHelper.isStoryteller(roomService.getRoom() | async) &&
+        (roomService.getState() | async).votingSchema?.votePhase === votePhaseEnum.PreVote
+      "
+      pButton
+      class="ui-button-success"
+      label="Begin Vote"
+      (click)="beginVote()"
+    ></button>
+  </div>
+</div>

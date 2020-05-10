@@ -1,0 +1,39 @@
+.token-container {
+  height: 100px;
+  width: 100px;
+  position: relative;
+  background-color: rgba(206, 206, 206, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+
+  .token-content {
+    height: 100%;
+  }
+
+  .name {
+    position: absolute;
+    bottom: 3px;
+    .label {
+      fill: #000;
+      stroke: #fff;
+      stroke-width: 2px;
+      paint-order: stroke;
+      font-family: Papyrus, serif;
+      font-weight: 700;
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+      letter-spacing: 1px;
+    }
+  }
+}
+
+.small-img {
+  width: 75px;
+}
+
+.selected {
+  border: solid white;
+}
+
+.overlay-container {
+  max-width: 200px;
+}

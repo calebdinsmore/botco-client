@@ -1,0 +1,15 @@
+<p-dialog header="Update Player Character" modal="true" [(visible)]="show">
+  <p-scrollPanel [style]="{ height: '400px' }">
+    <div class="dialog-body" fxLayout="row wrap" fxLayoutAlign="center center">
+      <app-character-token
+        *ngFor="let character of characters"
+        [character]="character"
+        (selectionChange)="selectionChange($event)"
+      ></app-character-token>
+    </div>
+  </p-scrollPanel>
+  <p-footer>
+    <button pButton class="ui-button-secondary" label="Cancel" (click)="cancel()"></button>
+    <button pButton class="ui-button-primary" label="Save" (click)="save()"></button>
+  </p-footer>
+</p-dialog>

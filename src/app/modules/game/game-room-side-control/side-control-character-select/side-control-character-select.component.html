@@ -1,0 +1,79 @@
+<div *ngIf="staticGameData">
+  <h1>Choose Characters:</h1>
+  <div
+    gdAreas="townsfolk-area townsfolk-count | outsider-area outsider-count | minion-area minion-count | demon-area demon-count"
+    gdAreaColumns="3fr 1f4"
+  >
+    <div gdArea="townsfolk-area">
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <app-character-token
+          *ngFor="let townsfolkCharacter of townsfolk"
+          [character]="townsfolkCharacter"
+          (selectionChange)="selectionChange()"
+        ></app-character-token>
+      </div>
+    </div>
+    <div gdArea="townsfolk-count" fxLayout="column" fxLayoutAlign="center center">
+      <span class="townsfolk count">
+        {{ selectedTownsfolkCount }} / {{ (roomService.getState() | async).gameMeta?.numberOfTownsfolk }}
+      </span>
+    </div>
+
+    <div gdArea="outsider-area">
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <app-character-token
+          *ngFor="let outsiderCharacter of outsiders"
+          [character]="outsiderCharacter"
+          (selectionChange)="selectionChange()"
+        >
+        </app-character-token>
+      </div>
+    </div>
+    <div gdArea="outsider-count" fxLayout="column" fxLayoutAlign="center center">
+      <span class="outsiders count">
+        {{ selectedOutsiderCount }} / {{ (roomService.getState() | async).gameMeta?.numberOfOutsiders }}
+      </span>
+    </div>
+
+    <div gdArea="minion-area">
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <app-character-token
+          *ngFor="let minionCharacter of minions"
+          [character]="minionCharacter"
+          (selectionChange)="selectionChange()"
+        >
+        </app-character-token>
+      </div>
+    </div>
+    <div gdArea="minion-count" fxLayout="column" fxLayoutAlign="center center">
+      <span class="minions count">
+        {{ selectedMinionCount }} / {{ (roomService.getState() | async).gameMeta?.numberOfMinions }}
+      </span>
+    </div>
+
+    <div gdArea="demon-area">
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <app-character-token
+          *ngFor="let demonCharacter of demons"
+          [character]="demonCharacter"
+          (selectionChange)="selectionChange()"
+        ></app-character-token>
+      </div>
+    </div>
+    <div gdArea="demon-count" fxLayout="column" fxLayoutAlign="center center">
+      <span class="count demons">
+        {{ selectedDemonCount }} / {{ (roomService.getState() | async).gameMeta?.numberOfDemons }}
+      </span>
+    </div>
+  </div>
+  <div>
+    <ul class="warnings">
+      <li *ngFor="let warning of warningsArray">{{ warning }}</li>
+    </ul>
+  </div>
+  <div class="mt-27" fxLayout="row" fxLayoutAlign="end center">
+    <button pButton type="button" label="Use These Characters" (click)="confirm()"></button>
+  </div>
+</div>
+
+<p-confirmDialog header="Are you sure?" icon="pi pi-exclamation-triangle"></p-confirmDialog>

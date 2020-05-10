@@ -1,0 +1,88 @@
+@import './declarations/colors.less';
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.dark-theme {
+  * {
+    color: #dedede;
+  }
+}
+
+.evil {
+  &-text {
+    color: @red-medium;
+  }
+}
+
+.good {
+  &-text {
+    color: @blue-medium;
+  }
+}
+
+h1,
+h2 {
+  font-family: 'PiratesBay', serif;
+  margin: 5px 0 27px;
+}
+
+.wood-token {
+  background-image: url('/assets/images/wood-token.png');
+  background-position-x: 50%;
+  background-position-y: center;
+  background-size: 100%;
+}
+
+.grey-token {
+  background-image: url('/assets/images/token.png');
+  background-position-x: 50%;
+  background-position-y: center;
+  background-size: 100%;
+}
+
+.townsfolk {
+  color: #1f65ff;
+}
+
+.outsiders {
+  color: #46d5ff;
+}
+
+.minions {
+  color: #ff6900;
+}
+
+.demons {
+  color: #ce0100;
+}
+
+// PrimeNG Overrides
+
+body {
+  .ui-toast {
+    .ui-toast-message.ui-toast-message {
+      &-error {
+        background-color: #730200;
+      }
+
+      &-info {
+        background-color: #1667a7;
+      }
+
+      &-warn {
+        background-color: #b7880c;
+      }
+
+      &-success {
+        background-color: #26a026;
+      }
+    }
+  }
+
+  .ui-button-text {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

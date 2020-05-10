@@ -1,0 +1,81 @@
+<div>
+  <div class="mb-20">
+    <p-fieldset
+      *ngIf="(roomService.getState() | async).gamePhase === gamePhaseEnum.PreGame; else currentPhase"
+      legend="Room Code"
+    >
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <span class="room-code">{{ (roomService.getRoom() | async).id }}</span>
+      </div>
+    </p-fieldset>
+    <ng-template #currentPhase>
+      <div class="current-phase" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3px">
+        <span>Phase:</span>
+        <i
+          class="fas"
+          [ngClass]="{
+            'fa-sun': (roomService.getState() | async).gamePhase === gamePhaseEnum.Day,
+            'fa-cloud-moon':
+              (roomService.getState() | async).gamePhase === gamePhaseEnum.Night ||
+              (roomService.getState() | async).gamePhase === gamePhaseEnum.FirstNight
+          }"
+        ></i>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="status-icons" fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center center">
+    <div>
+      <span class="number-label mr-5">{{ (roomService.getState() | async).gameMeta?.playerCount }}</span>
+      <i class="players fas fa-users"></i>
+    </div>
+    <div>
+      <span class="number-label mr-5">{{ gameStateHelper.livingPlayerCount(roomService.getState() | async) }}</span>
+      <i class="alive fas fa-heartbeat"></i>
+    </div>
+    <div>
+      <span class="number-label mr-5">{{ gameStateHelper.votesAvailable(roomService.getState() | async) }}</span>
+      <i class="votes fas fa-vote-yea"></i>
+    </div>
+  </div>
+
+  <div class="status-icons" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+    <div>
+      <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfTownsfolk }}</span>
+      <i class="townsfolk fas fa-user-friends"></i>
+    </div>
+    <div>
+      <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfOutsiders }}</span>
+      <i class="outsiders fas fa-user"></i>
+    </div>
+    <div>
+      <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfMinions }}</span>
+      <i class="minions fas fa-user"></i>
+    </div>
+    <div>
+      <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfDemons }}</span>
+      <i class="demons fas fa-user"></i>
+    </div>
+  </div>
+
+  <div
+    *ngIf="(roomService.getState() | async).votingSchema?.playerToBeExecutedId"
+    class="execution-icons mt-10"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <div>
+      <span class="mr-5"> {{ gameStateHelper.getPlayerToBeExecuted(roomService.getState() | async)?.username }}</span>
+      <i class="fas fa-skull"></i>
+    </div>
+    <div>
+      <span class="mr-5">{{ (roomService.getState() | async).votingSchema.votesToExecute }}</span>
+      <i class="fas fa-vote-yea alive"></i>
+    </div>
+  </div>
+
+  <div class="mt-10">
+    <app-game-room-reminder-summary></app-game-room-reminder-summary>
+  </div>
+</div>

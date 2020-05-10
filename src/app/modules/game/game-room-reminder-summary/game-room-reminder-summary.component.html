@@ -1,0 +1,19 @@
+<div class="container">
+  <ng-container *ngFor="let player of players">
+    <div class="mv-7" *ngFor="let reminderToken of player?.reminderTokens">
+      <span class="mr-2" [ngClass]="{}">{{ player.username }}</span>
+      <span
+        class="mr-2"
+        [ngClass]="{
+          minions: player.character.characterType === characterTypeEnum.Minion,
+          demons: player.character.characterType === characterTypeEnum.Demon,
+          townsfolk: player.character.characterType === characterTypeEnum.Townsfolk,
+          outsiders: player.character.characterType === characterTypeEnum.Outsider
+        }"
+      >
+        ({{ player.character.name }})
+      </span>
+      <span>{{ reminderToken.description }}</span>
+    </div>
+  </ng-container>
+</div>

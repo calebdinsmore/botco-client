@@ -1,0 +1,13 @@
+<div>
+  <div class="mb-27">
+    <h1>Reminder Tokens:</h1>
+    <div *ngIf="(roomService.getState() | async).reminderTokens" fxLayout="row wrap" fxLayoutGap="10px grid">
+      <div *ngFor="let reminderToken of (roomService.getState() | async).reminderTokens">
+        <app-reminder-token [reminderToken]="reminderToken"></app-reminder-token>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button pButton label="Recall Tokens" (click)="recallTokens()"></button>
+  </div>
+</div>

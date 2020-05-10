@@ -1,0 +1,35 @@
+<div class="container" [ngSwitch]="(gameTableStore.stateChanged | async).centerComponent">
+  <div *ngSwitchCase="centerComponentNameEnum.GameMeta">
+    <app-game-room-table-center-game-meta [playerMap]="playerMap"></app-game-room-table-center-game-meta>
+  </div>
+  <div *ngSwitchCase="centerComponentNameEnum.SelectedPlayer">
+    <div class="header fit-content">
+      <button
+        pButton
+        class="ui-button-rounded ui-button-danger ui-button-raised"
+        icon="fas fa-times-circle"
+        (click)="closeCenter()"
+      ></button>
+    </div>
+    <app-table-center-selected-player
+      [playerId]="gameTableStore.centerComponentPayload"
+    ></app-table-center-selected-player>
+  </div>
+  <div *ngSwitchCase="centerComponentNameEnum.VotingDisplay">
+    <app-table-center-voting-display></app-table-center-voting-display>
+  </div>
+  <div *ngSwitchCase="centerComponentNameEnum.Chat">
+    <app-table-center-chat></app-table-center-chat>
+  </div>
+  <div *ngSwitchDefault>Something else</div>
+  <div
+    class="chat-button-container fit-content"
+    [hidden]="(gameTableStore.stateChanged | async).centerComponent === centerComponentNameEnum.Chat"
+  >
+    <button class="chat-button" pButton icon="fas fa-comments" (click)="openChat()"></button>
+    <i
+      *ngIf="gameStateHelper.playerHasUnreadChats(roomService.getRoom() | async)"
+      class="unread-badge fas fa-certificate"
+    ></i>
+  </div>
+</div>

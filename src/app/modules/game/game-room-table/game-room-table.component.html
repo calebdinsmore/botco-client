@@ -1,0 +1,40 @@
+<div *ngIf="players" class="game-table-container">
+  <div
+    gdAreas="top top top top | left center center right | bottom bottom bottom bottom"
+    gdGap="16px"
+    gdRows="auto auto auto"
+    gdColumns="1fr 1fr 1fr 1fr"
+  >
+    <div gdArea="top" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="center center">
+      <div *ngFor="let seatNumber of [0, 1, 2, 3]">
+        <app-game-room-table-seat [player]="playerSeatMap.get(seatNumber)" [seatNumber]="seatNumber">
+        </app-game-room-table-seat>
+      </div>
+    </div>
+
+    <div gdArea="right" fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="center center">
+      <div *ngFor="let seatNumber of [4, 5, 6, 7]">
+        <app-game-room-table-seat [player]="playerSeatMap.get(seatNumber)" [seatNumber]="seatNumber">
+        </app-game-room-table-seat>
+      </div>
+    </div>
+
+    <div gdArea="bottom" fxLayout="row-reverse" fxLayoutGap="16px" fxLayoutAlign="center center">
+      <div *ngFor="let seatNumber of [8, 9, 10, 11]">
+        <app-game-room-table-seat [player]="playerSeatMap.get(seatNumber)" [seatNumber]="seatNumber">
+        </app-game-room-table-seat>
+      </div>
+    </div>
+
+    <div gdArea="left" fxLayout="column-reverse" fxLayoutGap="16px" fxLayoutAlign="center center">
+      <div *ngFor="let seatNumber of [12, 13, 14, 15]">
+        <app-game-room-table-seat [player]="playerSeatMap.get(seatNumber)" [seatNumber]="seatNumber">
+        </app-game-room-table-seat>
+      </div>
+    </div>
+
+    <div gdArea="center">
+      <app-game-room-table-center [playerMap]="playerSeatMap"></app-game-room-table-center>
+    </div>
+  </div>
+</div>

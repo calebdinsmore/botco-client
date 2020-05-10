@@ -1,0 +1,11 @@
+<div>
+  <h1>{{ header }} Sheet</h1>
+  <div *ngFor="let nightRow of nightRows">
+    <div *ngIf="nightRow" class="mv-10" fxLayout="row" fxLayoutAlign="start center">
+      <div class="mr-10 token-container grey-token" fxLayout="row" fxLayoutAlign="center center">
+        <img draggable="false" [src]="nightRow.characterImage" />
+      </div>
+      <span [innerHTML]="nightRow.reminderText"></span>
+    </div>
+  </div>
+</div>

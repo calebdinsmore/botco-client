@@ -1,0 +1,48 @@
+<div class="landing-container" fxLayout="column" fxLayoutAlign="center center">
+  <p-card>
+    <p-header>
+      <div class="logo-header">
+        <img src="assets/images/logo.png" />
+      </div>
+    </p-header>
+    <div>
+      <form #createForm="ngForm" (ngSubmit)="createRoom(createForm.value)">
+        <h2>Create a New Room (Storyteller)</h2>
+        <div class="ui-inputgroup ui-fluid mb-10">
+          <span class="ui-inputgroup-addon"><i class="fas fa-signature"></i></span>
+          <input ngModel name="username" pInputText placeholder="Display Name" required />
+        </div>
+        <button pButton [disabled]="!createForm.valid" type="submit" label="Create Room"></button>
+      </form>
+      <hr />
+      <h2>Join an Existing Room</h2>
+      <form #f="ngForm" (ngSubmit)="joinRoom(f.value)">
+        <div class="ui-inputgroup ui-fluid mb-10">
+          <span class="ui-inputgroup-addon"><i class="fas fa-signature"></i></span>
+          <input
+            ngModel
+            type="text"
+            pInputText
+            maxlength="12"
+            name="username"
+            placeholder="Display Name (Max 12 Characters)"
+            required
+          />
+        </div>
+        <div class="ui-inputgroup ui-fluid mb-10">
+          <span class="ui-inputgroup-addon"><i class="fas fa-users"></i></span>
+          <input
+            ngModel
+            type="text"
+            pInputText
+            name="roomCode"
+            placeholder="Room Code"
+            [style]="{ 'text-transform': 'uppercase' }"
+            required
+          />
+        </div>
+        <button pButton [disabled]="!f.valid" type="submit" label="Join Room"></button>
+      </form>
+    </div>
+  </p-card>
+</div>

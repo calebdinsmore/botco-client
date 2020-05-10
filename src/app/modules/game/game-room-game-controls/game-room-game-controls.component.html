@@ -1,0 +1,70 @@
+<div class="controls-container">
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button
+      pButton
+      class="ui-button-success fw-b"
+      label="Begin {{ nextPhaseLabel }}"
+      icon="fas fa-forward"
+      iconPos="right"
+      [disabled]="!canProceedToNextPhase"
+      (click)="proceedToNextPhase()"
+    ></button>
+  </div>
+  <div class="mv-20" *ngIf="(roomService.getState() | async).gamePhase === gamePhaseEnum.Day">
+    <p-fieldset legend="Nominations" [toggleable]="true" [collapsed]="true">
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <p-dropdown
+          placeholder="Nominated"
+          [(ngModel)]="nominatedPlayerId"
+          [options]="nominatedPlayerItems"
+          [showClear]="true"
+        >
+          <ng-template let-player pTemplate="selectedItem">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <img class="mr-5" style="height: '25px';" [src]="player.characterImage" />
+              <span>{{ player.label }}</span>
+            </div>
+          </ng-template>
+          <ng-template let-player pTemplate="item">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <img class="mr-5" style="height: '25px';" [src]="player.characterImage" />
+              <span>{{ player.label }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <p-dropdown
+          placeholder="Nominator"
+          [(ngModel)]="nominatingPlayerId"
+          [options]="nominatorPlayerItems"
+          [showClear]="true"
+        >
+          <ng-template let-player pTemplate="selectedItem">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <img class="mr-5" style="height: '25px';" [src]="player.characterImage" />
+              <span>{{ player.label }}</span>
+            </div>
+          </ng-template>
+          <ng-template let-player pTemplate="item">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <img class="mr-5" style="height: '25px';" [src]="player.characterImage" />
+              <span>{{ player.label }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <button
+          pButton
+          class="ui-button-info"
+          label="Nominate"
+          [disabled]="!nominatedPlayerId || !nominatingPlayerId"
+          (click)="nominatePlayer()"
+        ></button>
+      </div>
+    </p-fieldset>
+  </div>
+  <div>
+    <div>
+      <span class="mr-3">Room Code:</span>
+      <span class="room-code">{{ (roomService.getRoom() | async).id }}</span>
+    </div>
+  </div>
+</div>

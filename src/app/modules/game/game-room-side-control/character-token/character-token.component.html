@@ -1,0 +1,26 @@
+<div
+  class="token-container grey-token"
+  [pTooltip]="character.rulesText"
+  [ngClass]="{ selected: character._selected }"
+  (click)="selectCharacter()"
+>
+  <div class="token-content" fxLayout="column" fxLayoutAlign="center center">
+    <img class="small-img" [src]="character.image" />
+    <svg data-v-77841dfe="" viewBox="0 0 150 150" class="name">
+      <path data-v-77841dfe="" d="M 13 75 C 13 160, 138 160, 138 75" id="curve" fill="transparent"></path>
+      <text data-v-77841dfe="" width="150" x="66.6%" text-anchor="middle" font-size="20px" class="label">
+        <textPath data-v-77841dfe="" xlink:href="#curve">{{ character.name }}</textPath>
+      </text>
+    </svg>
+  </div>
+</div>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="overlay-container" fxLayout="column" fxLayoutAlign="center center">
+      <img [src]="character.image" />
+      <span class="f-wb">{{ character.name }}</span>
+      <span class="t-ac">{{ character.rulesText }}</span>
+    </div>
+  </ng-template>
+</p-overlayPanel>

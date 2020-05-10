@@ -1,0 +1,28 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <app-game-room-player-token [player]="player"></app-game-room-player-token>
+  </div>
+  <div *ngIf="(roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId">
+    <app-game-room-reminder-summary [playerId]="playerId"></app-game-room-reminder-summary>
+  </div>
+  <div class="player-action-buttons" *ngIf="gameStateHelper.isStoryteller(roomService.getRoom() | async)">
+    <button pButton label="Edit" (click)="editDialog.edit(player)"></button>
+    <button pButton label="Send Message"></button>
+    <button pButton label="Edit Character" (click)="editCharacter.open(player)"></button>
+    <button
+      pButton
+      class="ui-button-danger"
+      [label]="player?.isDead ? 'Revive' : 'Kill'"
+      (click)="toggleDead()"
+    ></button>
+    <button
+      pButton
+      class="ui-button-danger"
+      [label]="canSeeGrimoire ? 'Hide Grimoire' : 'Reveal Grimoire'"
+      (click)="toggleGrimoire()"
+    ></button>
+  </div>
+</div>
+
+<app-player-edit-dialog #editDialog></app-player-edit-dialog>
+<app-game-room-set-player-character-dialog #editCharacter></app-game-room-set-player-character-dialog>

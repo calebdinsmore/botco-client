@@ -1,0 +1,35 @@
+<p-dialog header="Update Player" modal="true" [(visible)]="show">
+  <div class="dialog-body" *ngIf="updatePlayerPayload?.player">
+    <form #playerEditForm="ngForm">
+      <span class="ui-float-label mb-10">
+        <input
+          id="float-input"
+          type="text"
+          size="30"
+          name="username"
+          pInputText
+          [(ngModel)]="updatePlayerPayload.player.username"
+        />
+        <label for="float-input">Username</label>
+      </span>
+      <div fxLayout="row wrap" fxLayout="start center" fxLayoutGap="20px">
+        <p-checkbox
+          name="isDead"
+          label="Dead"
+          binary="true"
+          [(ngModel)]="updatePlayerPayload.player.isDead"
+        ></p-checkbox>
+        <p-checkbox
+          name="canVote"
+          label="Can Vote"
+          binary="true"
+          [(ngModel)]="updatePlayerPayload.player.canVote"
+        ></p-checkbox>
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <button pButton class="ui-button-secondary" label="Cancel" (click)="cancel()"></button>
+    <button pButton class="ui-button-primary" label="Save" (click)="save()"></button>
+  </p-footer>
+</p-dialog>

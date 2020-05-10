@@ -1,0 +1,73 @@
+<!-- prettier-ignore-attribute [pDraggableDisabled] -->
+<div
+  class="seat-container"
+  pDraggable="seat"
+  pDroppable="seat"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  [ngClass]="{
+    'grey-token': player,
+    nominated:
+      (roomService.getState() | async).votingSchema?.nominatedPlayerId &&
+      (roomService.getState() | async).votingSchema?.nominatedPlayerId === player?.playerId,
+    highlighted:
+      (roomService.getState() | async).votingSchema?.highlightedPlayerId &&
+      (roomService.getState() | async).votingSchema?.highlightedPlayerId === player?.playerId,
+    dead: player?.isDead
+  }"
+  [pDraggableDisabled]="
+    (roomService.getState() | async).storyteller?.playerId !==  (roomService.getRoom() | async).sessionId ||
+    (roomService.getState() | async).gamePhase !== gamePhaseEnum?.PreGame
+  "
+  (onDragStart)="dragStart($event)"
+  (onDrop)="tokenDropped()"
+  (onDragEnd)="dragEnd()"
+  (click)="selectPlayer()"
+>
+  <div *ngIf="player && player.connected" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="player.character; else unknownCharacter">
+      <img draggable="false" [src]="player.character.image" [pTooltip]="player.character.name" />
+    </div>
+    <ng-template #unknownCharacter>
+      <i class="em {{ player.fallbackIcon }}" aria-role="presentation" aria-label=""></i>
+    </ng-template>
+    <svg data-v-77841dfe="" viewBox="0 0 150 150" class="character-name">
+      <path data-v-77841dfe="" d="M 13 75 C 13 160, 138 160, 138 75" id="curve" fill="transparent"></path>
+      <text data-v-77841dfe="" width="150" x="66.6%" text-anchor="middle" font-size="20px" class="label">
+        <textPath data-v-77841dfe="" xlink:href="#curve">{{ player?.character?.name }}</textPath>
+      </text>
+    </svg>
+    <div class="name">
+      <span [ngClass]="{ you: (roomService.getRoom() | async).sessionId === player.playerId }">{{
+        player?.username
+      }}</span>
+    </div>
+  </div>
+
+  <i *ngIf="player && !player.connected" class="pi pi-spin pi-spinner"></i>
+  <!-- Reminder tokens -->
+  <div
+    *ngFor="let reminderToken of player?.reminderTokens; index as i"
+    class="wood-token reminder reminder-{{ i }}"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    pTooltip="{{ player.username }} {{ reminderToken?.description }}"
+    (click)="removeReminderToken($event, reminderToken)"
+  >
+    <img draggable="false" [src]="reminderToken?.character.image" />
+  </div>
+  <div class="hand-container" [hidden]="!player?.handRaised">
+    <div class="raised-hand" fxLayout="column" fxLayoutAlign="center center">
+      <div>
+        <i class="fas fa-thumbs-up"></i>
+      </div>
+    </div>
+  </div>
+  <div class="dead-vote-container" [hidden]="!player?.isDead || !player?.canVote">
+    <div class="raised-hand" fxLayout="column" fxLayoutAlign="center center">
+      <div>
+        <i class="fas fa-vote-yea"></i>
+      </div>
+    </div>
+  </div>
+</div>

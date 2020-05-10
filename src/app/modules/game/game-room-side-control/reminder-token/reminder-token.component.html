@@ -1,0 +1,19 @@
+<div class="token-container" pDraggable="seat" (onDragStart)="dragStart()" (onDragEnd)="dragEnd()">
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <i (mouseenter)="op.show($event)" (mouseleave)="op.hide()" class="pi pi-info"></i>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <img draggable="false" class="small-img" [src]="reminderToken.character.image" />
+    <span class="fw-b">{{ reminderToken.shortName }}</span>
+  </div>
+</div>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="overlay-container" fxLayout="column" fxLayoutAlign="center center">
+      <img draggable="false" [src]="reminderToken.character.image" />
+      <span class="f-wb">{{ reminderToken.shortName }}</span>
+      <span class="t-ac">&lt;Player&gt;&nbsp;{{ reminderToken.description }}</span>
+    </div>
+  </ng-template>
+</p-overlayPanel>

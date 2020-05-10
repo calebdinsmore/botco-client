@@ -1,0 +1,117 @@
+/**
+ * This LESS file generates CSS padding/margin helper classes.
+ * For example, .mt-20 adds margin-top: 20px to the element.
+ * .m/pv and .m/ph translate to margin/padding vertical and horizontal.
+ * So .mv-20 adds both margin-top: 20px and margin-bottom: 20px to the element.
+ */
+
+//====================================
+//              FOR LOOP             =
+//====================================
+.for(@i, @n) {
+  .-each(@i);
+}
+
+.for(@n) when (isnumber(@n)) {
+  .for(1, @n);
+}
+
+.for(@i, @n) when not (@i =@n) {
+  .for((@i + (@n - @i) / abs(@n - @i)), @n);
+}
+
+//--------  End of for loop  ---------//
+
+//=========================================
+//              FOR EACH LOOP             =
+//=========================================
+.for(@array) when (default()) {
+  .for-impl_(length(@array));
+}
+
+.for-impl_(@i) when (@i > 1) {
+  .for-impl_((@i - 1));
+}
+
+.for-impl_(@i) when (@i > 0) {
+  .-each(extract(@array, @i));
+}
+
+//--------  End of for each loop  ---------//
+
+///////////////
+// variables //
+///////////////
+// I've decided to only include classes for 0-50, since we shouldn't need more than that.
+@values-array: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+  34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,
+  69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100;
+
+.make-space();
+
+// Make all the classes!
+.make-space() {
+  .for(@values-array);
+
+  .-each(@value) {
+    .p-@{value} {
+      padding:~'@{value}px';
+    }
+
+    .pt-@{value} {
+      padding-top:~'@{value}px';
+    }
+
+    .pl-@{value} {
+      padding-left:~'@{value}px';
+    }
+
+    .pr-@{value} {
+      padding-right:~'@{value}px';
+    }
+
+    .pb-@{value} {
+      padding-bottom:~'@{value}px';
+    }
+
+    .ph-@{value} {
+      padding-left:~'@{value}px';
+      padding-right:~'@{value}px';
+    }
+
+    .pv-@{value} {
+      padding-top:~'@{value}px';
+      padding-bottom:~'@{value}px';
+    }
+
+    .m-@{value} {
+      margin:~'@{value}px';
+    }
+
+    .mt-@{value} {
+      margin-top:~'@{value}px';
+    }
+
+    .ml-@{value} {
+      margin-left:~'@{value}px';
+    }
+
+    .mr-@{value} {
+      margin-right:~'@{value}px';
+    }
+
+    .mb-@{value} {
+      margin-bottom:~'@{value}px';
+    }
+
+    .mh-@{value} {
+      margin-left:~'@{value}px';
+      margin-right:~'@{value}px';
+    }
+
+    .mv-@{value} {
+      margin-top:~'@{value}px';
+      margin-bottom:~'@{value}px';
+    }
+  }
+}

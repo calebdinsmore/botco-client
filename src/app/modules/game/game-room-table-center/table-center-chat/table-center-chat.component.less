@@ -1,0 +1,40 @@
+.container {
+  position: relative;
+  background-color: rgba(25, 25, 25, 0.75);
+  padding: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.chat-window-container {
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  cursor: pointer;
+  top: 3px;
+  left: 0;
+}
+
+.chat-row {
+  padding: 5px 2px;
+
+  &:not(.first) {
+    border-top: 1px solid #c9c9c9;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(25, 25, 25, 0.5);
+  }
+}
+
+.unread-badge {
+  color: red;
+}

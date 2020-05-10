@@ -1,0 +1,26 @@
+<div gdAreas="left center right | bottom bottom bottom" gdColumns="1.5fr 450px 1.5fr">
+  <div
+    *ngIf="(roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId"
+    gdArea="left"
+  >
+    <app-game-room-side-control></app-game-room-side-control>
+  </div>
+  <div gdArea="center" fxLayout="row" fxLayoutAlign="start start">
+    <app-game-room-table [players]="players"></app-game-room-table>
+  </div>
+  <div
+    *ngIf="(roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId"
+    gdArea="right"
+  >
+    <app-game-room-right-side></app-game-room-right-side>
+  </div>
+
+  <div
+    gdArea="bottom"
+    *ngIf="(roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <app-game-room-game-controls></app-game-room-game-controls>
+  </div>
+</div>
