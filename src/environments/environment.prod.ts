@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'botc-server.smore.me:2567',
+  apiUrl: 'wss://botc-server.smore.me',
 };

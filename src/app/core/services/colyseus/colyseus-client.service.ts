@@ -7,6 +7,6 @@ import { Client } from 'colyseus.js';
 })
 export class ColyseusClientService extends Client {
   constructor() {
-    super(`ws://${environment.apiUrl}`);
+    super(environment.apiUrl);
   }
 }
