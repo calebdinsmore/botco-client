@@ -1,0 +1,20 @@
+<div *ngIf="!selectedSet; else chooseCharacters">
+  <h1>Choose Set:</h1>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <div *ngFor="let charSet of (roomService.getStaticGameData() | async).characterSets" (click)="selectSet(charSet)">
+      <img [src]="charSet.image" />
+    </div>
+  </div>
+</div>
+
+<ng-template #chooseCharacters>
+  <button
+    pButton
+    class="ui-button-info"
+    label="Back"
+    icon="fas fa-chevron-left"
+    iconPos="left"
+    (click)="selectedSet = null"
+  ></button>
+  <app-side-control-character-select [characterSet]="selectedSet"></app-side-control-character-select>
+</ng-template>

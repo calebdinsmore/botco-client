@@ -2,21 +2,22 @@ import { CharacterDto } from './../../../../core/services/room/dto/character.dto
 import { StaticGameDataDto } from './../../../../core/services/room/dto/static-game-data.dto';
 import { Subscription } from 'rxjs';
 import { RoomService } from './../../../../core/services/room/room.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 import { ConfirmationService } from 'primeng/api';
 import { CommandsEnum } from 'src/app/core/services/room/dto/commands/commands.enum';
 import { SetCharactersDto } from 'src/app/core/services/room/dto/commands/pre-game/set-characters.dto';
 import { CharacterTypeEnum } from 'src/app/core/services/room/dto/enum/character-type.enum';
+import { CharacterSetDto } from 'src/app/core/services/room/dto/character-set.dto';
 
 @Component({
   selector: 'app-side-control-character-select',
   templateUrl: './side-control-character-select.component.html',
   styleUrls: ['./side-control-character-select.component.less'],
 })
-export class SideControlCharacterSelectComponent implements OnInit, OnDestroy {
-  staticGameData: StaticGameDataDto;
-  characters: CharacterDto[];
+export class SideControlCharacterSelectComponent implements OnInit, OnChanges {
+  @Input() characterSet: CharacterSetDto;
+  characters: CharacterDto[] = [];
   townsfolk: CharacterDto[];
   outsiders: CharacterDto[];
   minions: CharacterDto[];
@@ -27,29 +28,19 @@ export class SideControlCharacterSelectComponent implements OnInit, OnDestroy {
   selectedDemonCount = 0;
   warningsMap = new Map<string, string>();
   warningsArray: string[] = [];
-  private subs: Subscription = new Subscription();
 
   constructor(public roomService: RoomService, private confirmationService: ConfirmationService) {}
 
-  ngOnInit(): void {
-    this.subs.add(
-      this.roomService.getStaticGameData().subscribe((data) => {
-        this.staticGameData = _.cloneDeep(data);
-        if (this.staticGameData?.characterSets) {
-          this.characters = this.staticGameData?.characterSets[0].characters;
-          if (this.characters) {
-            this.townsfolk = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Townsfolk);
-            this.outsiders = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Outsider);
-            this.minions = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Minion);
-            this.demons = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Demon);
-          }
-        }
-      })
-    );
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
+  ngOnChanges() {
+    if (this.characterSet) {
+      this.characters = this.characterSet.characters;
+      this.townsfolk = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Townsfolk);
+      this.outsiders = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Outsider);
+      this.minions = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Minion);
+      this.demons = this.characters.filter((x) => x.characterType === CharacterTypeEnum.Demon);
+    }
   }
 
   confirm() {
@@ -74,6 +65,7 @@ export class SideControlCharacterSelectComponent implements OnInit, OnDestroy {
       }
     }
     this.roomService.sendCommand(CommandsEnum.SetCharacters, {
+      characterSet: this.characterSet.setName,
       characterNames,
       includeReminderTokensFor,
     } as SetCharactersDto);

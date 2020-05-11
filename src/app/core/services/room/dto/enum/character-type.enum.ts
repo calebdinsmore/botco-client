@@ -1,6 +1,6 @@
 export enum CharacterTypeEnum {
-  Townsfolk = 'TOWNSFOLK',
-  Outsider = 'OUTSIDER',
-  Minion = 'MINION',
-  Demon = 'DEMON',
+  Townsfolk = 'townsfolk',
+  Outsider = 'outsider',
+  Minion = 'minion',
+  Demon = 'demon',
 }

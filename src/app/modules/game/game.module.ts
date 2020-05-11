@@ -21,6 +21,7 @@ import { TableCenterChatComponent } from './game-room-table-center/table-center-
 import { ChatWindowComponent } from './game-room-table-center/table-center-chat/chat-window/chat-window.component';
 import { PlayerEditDialogComponent } from './game-room-table-center/table-center-selected-player/player-edit-dialog/player-edit-dialog.component';
 import { GameRoomSetPlayerCharacterDialogComponent } from './game-room-set-player-character-dialog/game-room-set-player-character-dialog.component';
+import { SideControlCharacterSetSelectComponent } from './game-room-side-control/side-control-character-set-select/side-control-character-set-select.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { GameRoomSetPlayerCharacterDialogComponent } from './game-room-set-playe
     ChatWindowComponent,
     PlayerEditDialogComponent,
     GameRoomSetPlayerCharacterDialogComponent,
+    SideControlCharacterSetSelectComponent,
   ],
   imports: [SharedModule],
   exports: [GameRoomComponent],

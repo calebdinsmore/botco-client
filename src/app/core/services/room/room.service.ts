@@ -110,6 +110,7 @@ export class RoomService {
       this.state.next(this.room.state);
     });
     this.room.onMessage('static_game_data', (message) => {
+      console.log(message);
       this.staticGameDataSubject.next(message);
     });
   }

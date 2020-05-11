@@ -1,6 +1,7 @@
 <div class="side-container">
   <div *ngIf="!(roomService.getState() | async).charactersDistributed; else reminders">
-    <app-side-control-character-select></app-side-control-character-select>
+    <!-- <app-side-control-character-select></app-side-control-character-select> -->
+    <app-side-control-character-set-select></app-side-control-character-set-select>
   </div>
   <ng-template #reminders>
     <app-reminder-token-tray></app-reminder-token-tray>
