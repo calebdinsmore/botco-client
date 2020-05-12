@@ -31,5 +31,6 @@ export class PlayerEditDialogComponent implements OnInit {
 
   save() {
     this.roomService.sendCommand(CommandsEnum.UpdatePlayer, this.updatePlayerPayload);
+    this.show = false;
   }
 }

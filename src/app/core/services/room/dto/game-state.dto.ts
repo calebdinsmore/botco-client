@@ -4,6 +4,7 @@ import { MapSchema } from '@colyseus/schema';
 import { PlayerDto } from './player.dto';
 import { GamePhaseEnum } from './enum/game-phase.enum';
 import { ReminderTokenDto } from './reminder-token.dto';
+import { CharacterSetEnum } from './enum/character-set.enum';
 
 export interface GameStateDto {
   players: MapSchema<PlayerDto>;
@@ -16,4 +17,5 @@ export interface GameStateDto {
   charactersDistributed: boolean;
   votingSchema: VotingDto;
   canSeeGrimoirePlayerId: string;
+  characterSet: CharacterSetEnum;
 }

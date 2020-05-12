@@ -11,6 +11,7 @@ import { NominatePlayerPayloadDto } from 'src/app/core/services/room/dto/command
 
 interface PlayerSelectItem extends SelectItem {
   characterImage: string;
+  showWarning: boolean;
 }
 
 @Component({
@@ -95,6 +96,7 @@ export class GameRoomGameControlsComponent implements OnInit, OnDestroy {
             value: player.playerId,
             icon: player.fallbackIcon,
             characterImage: player.character?.image,
+            showWarning: player.hasBeenNominated,
           });
           if (!player.isDead) {
             this.nominatorPlayerItems.push({
@@ -102,6 +104,7 @@ export class GameRoomGameControlsComponent implements OnInit, OnDestroy {
               value: player.playerId,
               icon: player.fallbackIcon,
               characterImage: player.character?.image,
+              showWarning: player.hasNominated,
             });
           }
         }

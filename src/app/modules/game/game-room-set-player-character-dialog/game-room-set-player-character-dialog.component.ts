@@ -17,6 +17,7 @@ import { CharacterSetEnum } from 'src/app/core/services/room/dto/enum/character-
 export class GameRoomSetPlayerCharacterDialogComponent implements OnInit {
   show = false;
   staticGameData: StaticGameDataDto;
+  characterSet: CharacterSetEnum;
   characters: CharacterDto[] = [];
   player: PlayerDto;
   selectedCharacter: CharacterDto;
@@ -26,12 +27,17 @@ export class GameRoomSetPlayerCharacterDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.subs.add(
+      this.roomService.getState().subscribe((state) => {
+        this.characterSet = state.characterSet;
+      })
+    );
+    this.subs.add(
       this.roomService.getStaticGameData().subscribe((data) => {
         this.staticGameData = _.cloneDeep(data);
-        if (this.staticGameData?.characterSets) {
-          this.characters = this.staticGameData?.characterSets[0].characters;
-          if (this.characters) {
-            _.sortBy(this.characters, (x) => x.characterType);
+        if (this.staticGameData?.characterSets && this.characterSet) {
+          const charSet = _.find(this.staticGameData.characterSets, (x) => x.setName === this.characterSet);
+          if (charSet) {
+            this.characters = charSet.characters;
           }
         }
       })
@@ -66,7 +72,7 @@ export class GameRoomSetPlayerCharacterDialogComponent implements OnInit {
     this.roomService.sendCommand(CommandsEnum.ChangePlayerCharacter, {
       playerId: this.player.playerId,
       characterName: this.selectedCharacter.name,
-      characterSet: CharacterSetEnum.TroubleBrewing,
+      characterSet: this.characterSet,
     } as ChangePlayerCharacterPayloadDto);
     this.show = false;
   }

@@ -29,6 +29,11 @@
             <div fxLayout="row" fxLayoutAlign="start center">
               <img class="mr-5" style="height: '25px';" [src]="player.characterImage" />
               <span>{{ player.label }}</span>
+              <i
+                *ngIf="player.showWarning"
+                class="ml-5 fas fa-exclamation-circle"
+                [pTooltip]="player.label + ' has been nominated.'"
+              ></i>
             </div>
           </ng-template>
         </p-dropdown>
@@ -48,6 +53,11 @@
             <div fxLayout="row" fxLayoutAlign="start center">
               <img class="mr-5" style="height: '25px';" [src]="player.characterImage" />
               <span>{{ player.label }}</span>
+              <i
+                *ngIf="player.showWarning"
+                class="ml-5 fas fa-exclamation-circle"
+                [pTooltip]="player.label + ' has nominated.'"
+              ></i>
             </div>
           </ng-template>
         </p-dropdown>
