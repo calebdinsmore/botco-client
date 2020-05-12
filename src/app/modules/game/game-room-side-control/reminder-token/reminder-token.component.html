@@ -1,19 +1,24 @@
-<div class="token-container" pDraggable="seat" (onDragStart)="dragStart()" (onDragEnd)="dragEnd()">
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <i (mouseenter)="op.show($event)" (mouseleave)="op.hide()" class="pi pi-info"></i>
-  </div>
-  <div fxLayout="column" fxLayoutAlign="center center">
+<div class="token-container wood-token" pDraggable="seat" (onDragStart)="dragStart()" (onDragEnd)="dragEnd()">
+  <div
+    class="token-content"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    [pTooltip]="'Player ' + reminderToken.description"
+  >
     <img draggable="false" class="small-img" [src]="reminderToken.character.image" />
-    <span class="fw-b">{{ reminderToken.shortName }}</span>
+    <svg data-v-77841dfe="" viewBox="0 0 150 150" class="token-name">
+      <path data-v-77841dfe="" d="M 13 75 C 13 160, 138 160, 138 75" id="curve" fill="transparent"></path>
+      <text
+        data-v-77841dfe=""
+        width="150"
+        x="66.6%"
+        text-anchor="middle"
+        font-weight="bold"
+        font-size="20px"
+        class="label"
+      >
+        <textPath data-v-77841dfe="" xlink:href="#curve">{{ reminderToken.shortName }}</textPath>
+      </text>
+    </svg>
   </div>
 </div>
-
-<p-overlayPanel #op>
-  <ng-template pTemplate>
-    <div class="overlay-container" fxLayout="column" fxLayoutAlign="center center">
-      <img draggable="false" [src]="reminderToken.character.image" />
-      <span class="f-wb">{{ reminderToken.shortName }}</span>
-      <span class="t-ac">&lt;Player&gt;&nbsp;{{ reminderToken.description }}</span>
-    </div>
-  </ng-template>
-</p-overlayPanel>
