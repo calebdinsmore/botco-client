@@ -17,10 +17,19 @@
 
   <div
     gdArea="bottom"
-    *ngIf="(roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId"
+    *ngIf="
+      (roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId;
+      else playerControls
+    "
     fxLayout="row"
     fxLayoutAlign="center center"
   >
     <app-game-room-game-controls></app-game-room-game-controls>
   </div>
+
+  <ng-template #playerControls>
+    <div gdArea="bottom" fxLayout="row" fxLayoutAlign="center center">
+      <app-game-room-player-controls></app-game-room-player-controls>
+    </div>
+  </ng-template>
 </div>

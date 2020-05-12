@@ -19,6 +19,7 @@ import { SpinnerModule } from 'primeng/spinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   declarations: [InitialsPipe],
@@ -40,6 +41,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     ScrollPanelModule,
     DialogModule,
     CheckboxModule,
+    TabViewModule,
   ],
   exports: [
     CommonModule,
@@ -60,6 +62,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     ScrollPanelModule,
     DialogModule,
     CheckboxModule,
+    TabViewModule,
   ],
   providers: [InitialsPipe, MessageService, ConfirmationService],
 })

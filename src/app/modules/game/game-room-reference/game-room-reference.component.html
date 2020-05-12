@@ -1,0 +1,15 @@
+<p-dialog header="Reference" [resizable]="true" [(visible)]="show">
+  <p-tabView>
+    <p-tabPanel
+      *ngFor="let charSet of (roomService.getStaticGameData() | async).characterSets; index as i"
+      [header]="charSet.setName.toUpperCase()"
+      [selected]="
+        (roomService.getState() | async).characterSet
+          ? (roomService.getState() | async).characterSet === charSet.setName
+          : i === 0
+      "
+    >
+      <app-reference-character-sheet [characterSet]="charSet.setName"> </app-reference-character-sheet>
+    </p-tabPanel>
+  </p-tabView>
+</p-dialog>

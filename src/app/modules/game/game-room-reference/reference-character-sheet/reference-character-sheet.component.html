@@ -1,0 +1,66 @@
+<div *ngIf="characters">
+  <h3>Townsfolk</h3>
+  <div
+    class="mv-10"
+    *ngFor="let character of townsfolk"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+    fxLayout.lt-md="column"
+    fxLayoutAlign.lt-md="center center"
+  >
+    <div class="token-container grey-token" fxLayout="row" fxLayoutAlign="center center">
+      <img draggable="false" [src]="character.image" />
+    </div>
+    <span fxFlex="1 1 100px">{{ character.name }}</span>
+    <span>{{ character.rulesText }}</span>
+  </div>
+  <h3>Outsiders</h3>
+  <div
+    class="mv-10"
+    *ngFor="let character of outsiders"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+    fxLayout.lt-md="column"
+    fxLayoutAlign.lt-md="center center"
+  >
+    <div class="token-container grey-token" fxLayout="row" fxLayoutAlign="center center">
+      <img draggable="false" [src]="character.image" />
+    </div>
+    <span fxFlex="1 1 100px">{{ character.name }}</span>
+    <span>{{ character.rulesText }}</span>
+  </div>
+  <h3>Minions</h3>
+  <div
+    class="mv-10"
+    *ngFor="let character of minions"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+    fxLayout.lt-md="column"
+    fxLayoutAlign.lt-md="center center"
+  >
+    <div class="token-container grey-token" fxLayout="row" fxLayoutAlign="center center">
+      <img draggable="false" [src]="character.image" />
+    </div>
+    <span fxFlex="1 1 100px">{{ character.name }}</span>
+    <span>{{ character.rulesText }}</span>
+  </div>
+  <h3>Demons</h3>
+  <div
+    class="mv-10"
+    *ngFor="let character of demons"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+    fxLayout.lt-md="column"
+    fxLayoutAlign.lt-md="center center"
+  >
+    <div class="token-container grey-token" fxLayout="row" fxLayoutAlign="center center">
+      <img draggable="false" [src]="character.image" />
+    </div>
+    <span fxFlex="1 1 100px">{{ character.name }}</span>
+    <span>{{ character.rulesText }}</span>
+  </div>
+</div>

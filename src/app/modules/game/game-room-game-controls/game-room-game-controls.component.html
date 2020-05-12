@@ -1,5 +1,6 @@
 <div class="controls-container">
-  <div fxLayout="row" fxLayoutAlign="end center">
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+    <button pButton label="Reference" (click)="referenceDialog.open()"></button>
     <button
       pButton
       class="ui-button-success fw-b"
@@ -78,3 +79,4 @@
     </div>
   </div>
 </div>
+<app-game-room-reference #referenceDialog></app-game-room-reference>
