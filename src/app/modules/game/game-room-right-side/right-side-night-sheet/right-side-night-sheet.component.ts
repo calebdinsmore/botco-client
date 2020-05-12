@@ -9,6 +9,9 @@ import { GameStateDto } from 'src/app/core/services/room/dto/game-state.dto';
 interface NightRow {
   characterImage: string;
   reminderText: string;
+  toolTip: string;
+  priority: number;
+  isDead: boolean;
 }
 
 @Component({
@@ -57,8 +60,31 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
           .replace(/:plus-circle:/g, '<i class="fas fa-plus-circle"></i>')
           .replace(/:question-circle:/g, '<i class="fas fa-question-circle"></i>')
           .replace(/•/g, '<br/>•');
-        return { characterImage: player.character?.image, reminderText };
+        return {
+          characterImage: player.character?.image,
+          reminderText,
+          toolTip: player.character?.name,
+          priority: player.character?.firstNightPriority,
+          isDead: player.isDead,
+        };
       });
+      if (state.gameMeta.playerCount > 6) {
+        this.nightRows.push({
+          characterImage: 'M',
+          reminderText: 'Tell the Minions who each other are and who the Demon is.',
+          toolTip: 'Minion Info',
+          priority: 0.5,
+          isDead: false,
+        });
+        this.nightRows.push({
+          characterImage: 'D',
+          reminderText: 'Tell the Demon who the Minions are. Tell the demon 3 Good characters not in play.',
+          toolTip: 'Demon Info',
+          priority: 1.5,
+          isDead: false,
+        });
+        this.nightRows = _.sortBy(this.nightRows, (x) => x?.priority);
+      }
     } else {
       this.players = _.sortBy(this.players, (x) => x.character?.otherNightPriority);
       this.nightRows = this.players.map<NightRow>((player) => {
@@ -69,7 +95,13 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
           .replace(/:plus-circle:/g, '<i class="fas fa-plus-circle"></i>')
           .replace(/:question-circle:/g, '<i class="fas fa-question-circle"></i>')
           .replace(/•/g, '<br/>•');
-        return { characterImage: player.character?.image, reminderText };
+        return {
+          characterImage: player.character?.image,
+          reminderText,
+          toolTip: player.character?.name,
+          priority: player.character?.otherNightPriority,
+          isDead: player.isDead,
+        };
       });
     }
   }
