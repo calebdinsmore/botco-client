@@ -4,16 +4,26 @@
     <i *ngIf="!otherPlayer?.character?.image" class="em {{ otherPlayer.fallbackIcon }}"></i>
     <span>{{ otherPlayer.username }}</span>
   </div>
-  <p-scrollPanel #scrollPanel [style]="{ width: '100%', height: '350px' }">
+  <p-scrollPanel #scrollPanel [style]="{ width: '100%', height: '300px' }">
     <div *ngFor="let chatMessage of chatRoom?.messages" fxLayout="column" class="mb-10">
-      <span>[{{ playerMap.get(chatMessage.authorId).username }}]</span>
+      <span>[{{ playerMap.get(chatMessage.authorId).username }} - {{ getDateString(chatMessage) }}]</span>
       <span>{{ chatMessage.content }}</span>
     </div>
   </p-scrollPanel>
   <div>
     <form #chatForm="ngForm" (ngSubmit)="sendMessage(chatForm.value)">
       <div class="ui-inputgroup">
-        <input pInputText autocomplete="off" name="message" [(ngModel)]="messageText" (change)="inputChanged()" />
+        <textarea
+          pInputTextarea
+          maxlength="200"
+          name="message"
+          autoResize="autoResize"
+          placeholder="(Max 200 Chars)"
+          [rows]="2"
+          [cols]="30"
+          [(ngModel)]="messageText"
+          (keydown)="keyDownEvent($event)"
+        ></textarea>
         <button pButton type="submit" icon="fas fa-paper-plane" class="ui-button-warn"></button>
       </div>
     </form>

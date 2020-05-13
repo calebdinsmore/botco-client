@@ -11,6 +11,7 @@ import { GameStateDto } from 'src/app/core/services/room/dto/game-state.dto';
 import { Room } from 'colyseus.js';
 import { CommandsEnum } from 'src/app/core/services/room/dto/commands/commands.enum';
 import { ScrollPanel } from 'primeng/scrollpanel/public_api';
+import { ChatMessageDto } from 'src/app/core/services/room/dto/chat-message.dto';
 
 @Component({
   selector: 'app-chat-window',
@@ -65,10 +66,13 @@ export class ChatWindowComponent implements OnInit, OnChanges, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  inputChanged() {
-    this.roomService.sendCommand(CommandsEnum.MarkChatRead, {
-      toPlayerId: this.chatRoom.otherPlayerId,
-    } as MarkChatReadPayloadDto);
+  keyDownEvent(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      if (!event.shiftKey) {
+        this.sendMessage({ message: this.messageText });
+        return false;
+      }
+    }
   }
 
   sendMessage(formValue: { message: string }) {
@@ -77,5 +81,10 @@ export class ChatWindowComponent implements OnInit, OnChanges, OnDestroy {
       content: formValue.message,
     } as SendChatMessagePayloadDto);
     this.messageText = '';
+  }
+
+  getDateString(chatMessage: ChatMessageDto) {
+    const date = new Date(chatMessage.timestamp);
+    return date.toLocaleTimeString();
   }
 }

@@ -10,6 +10,9 @@ import { GameStateDto } from './dto/game-state.dto';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { AppStorageKeysEnum } from '../app-storage/app-storage-keys-enum';
 import * as _ from 'lodash';
+import { ClientMessageTypeEnum } from './dto/enum/client-message-type.enum';
+import { NotificationPayloadDto } from './dto/notification-payload.dto';
+import { NotificationTypeEnum } from './dto/enum/notification-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -109,9 +112,16 @@ export class RoomService {
     this.room.onMessage('reset_state', () => {
       this.state.next(this.room.state);
     });
-    this.room.onMessage('static_game_data', (message) => {
+    this.room.onMessage(ClientMessageTypeEnum.StaticGameData, (message) => {
       console.log(message);
       this.staticGameDataSubject.next(message);
+    });
+    this.room.onMessage(ClientMessageTypeEnum.Notification, (message: NotificationPayloadDto) => {
+      switch (message.type) {
+        case NotificationTypeEnum.Info:
+          this.notificationService.info(message.detail, message.summary);
+          break;
+      }
     });
   }
 }

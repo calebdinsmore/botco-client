@@ -20,6 +20,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TabViewModule } from 'primeng/tabview';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [InitialsPipe],
@@ -42,6 +43,7 @@ import { TabViewModule } from 'primeng/tabview';
     DialogModule,
     CheckboxModule,
     TabViewModule,
+    InputTextareaModule,
   ],
   exports: [
     CommonModule,
@@ -63,6 +65,7 @@ import { TabViewModule } from 'primeng/tabview';
     DialogModule,
     CheckboxModule,
     TabViewModule,
+    InputTextareaModule,
   ],
   providers: [InitialsPipe, MessageService, ConfirmationService],
 })

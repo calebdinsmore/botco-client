@@ -48,9 +48,11 @@ export class TableCenterChatComponent implements OnInit {
 
   selectChatRoom(chatRoom: ChatRoomDto) {
     this.selectedChatRoom = chatRoom;
-    this.roomService.sendCommand(CommandsEnum.MarkChatRead, {
-      toPlayerId: chatRoom.otherPlayerId,
-    } as MarkChatReadPayloadDto);
+    if (chatRoom.hasUnread) {
+      this.roomService.sendCommand(CommandsEnum.MarkChatRead, {
+        toPlayerId: chatRoom.otherPlayerId,
+      } as MarkChatReadPayloadDto);
+    }
   }
 
   deselectChatRoom() {

@@ -2,6 +2,7 @@ import { CenterComponentNameEnum } from './enum/center-component-name.enum';
 import { GameTableStoreActionsEnum } from './enum/game-table-store-actions.enum';
 import { Injectable } from '@angular/core';
 import { ObservableStore } from '@codewithdan/observable-store';
+import { RoomService } from '../../services/room/room.service';
 
 export interface GameTableStoreState {
   draggedPlayerId: string;
@@ -14,14 +15,14 @@ export interface GameTableStoreState {
   providedIn: 'root',
 })
 export class GameTableStoreService extends ObservableStore<GameTableStoreState> {
-  constructor() {
+  constructor(private roomService: RoomService) {
+    super({});
     const initialState: GameTableStoreState = {
       draggedPlayerId: null,
       draggedReminderTokenId: null,
       centerComponent: CenterComponentNameEnum.GameMeta,
       centerComponentPayload: null,
     };
-    super({});
     this.setState(initialState, 'INIT_STATE');
   }
 
