@@ -5,18 +5,20 @@ import { GameStateHelperService } from './../../../../core/services/game-state-h
 import { PlayerDto } from './../../../../core/services/room/dto/player.dto';
 import { Subscription } from 'rxjs';
 import { RoomService } from './../../../../core/services/room/room.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { GameStateDto } from 'src/app/core/services/room/dto/game-state.dto';
 import { Room } from 'colyseus.js';
 import { CenterComponentNameEnum } from 'src/app/core/stores/game-table-store/enum/center-component-name.enum';
 import { CommandsEnum } from 'src/app/core/services/room/dto/commands/commands.enum';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-table-center-chat',
   templateUrl: './table-center-chat.component.html',
   styleUrls: ['./table-center-chat.component.less'],
 })
-export class TableCenterChatComponent implements OnInit {
+export class TableCenterChatComponent implements OnInit, OnChanges {
+  @Input() playerId: string;
   state: GameStateDto;
   room: Room<GameStateDto>;
   chatRooms: ChatRoomDto[];
@@ -41,9 +43,19 @@ export class TableCenterChatComponent implements OnInit {
           this.state = state;
           const currentPlayer = this.gameStateHelper.currentPlayer(this.room);
           this.chatRooms = this.gameStateHelper.mapSchemaAsArray(currentPlayer.chatRooms);
+          if (this.playerId) {
+            this.selectChatRoomFromPlayerId();
+          }
         }
       })
     );
+  }
+
+  ngOnChanges() {
+    console.log(this.playerId);
+    if (this.playerId && this.chatRooms) {
+      this.selectChatRoomFromPlayerId();
+    }
   }
 
   selectChatRoom(chatRoom: ChatRoomDto) {
@@ -66,5 +78,17 @@ export class TableCenterChatComponent implements OnInit {
 
   closeChat() {
     this.gameTableStore.setCenterComponent(CenterComponentNameEnum.GameMeta);
+  }
+
+  private selectChatRoomFromPlayerId() {
+    const chatRoom = _.find(this.chatRooms, (x) => x.otherPlayerId === this.playerId);
+    if (chatRoom.otherPlayerId !== this.selectedChatRoom?.otherPlayerId) {
+      this.deselectChatRoom();
+      setTimeout(() => {
+        if (chatRoom) {
+          this.selectChatRoom(chatRoom);
+        }
+      });
+    }
   }
 }

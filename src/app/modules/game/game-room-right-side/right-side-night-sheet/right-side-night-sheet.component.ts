@@ -5,8 +5,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as _ from 'lodash';
 import { GamePhaseEnum } from 'src/app/core/services/room/dto/enum/game-phase.enum';
 import { GameStateDto } from 'src/app/core/services/room/dto/game-state.dto';
+import { GameTableStoreService } from 'src/app/core/stores/game-table-store/game-table-store.service';
+import { CenterComponentNameEnum } from 'src/app/core/stores/game-table-store/enum/center-component-name.enum';
 
 interface NightRow {
+  playerId: string;
   characterImage: string;
   reminderText: string;
   toolTip: string;
@@ -23,9 +26,10 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
   players: PlayerDto[] = [];
   header: string;
   nightRows: NightRow[] = [];
+  showChatIcon: boolean;
 
   private subs = new Subscription();
-  constructor(public roomService: RoomService) {}
+  constructor(public roomService: RoomService, private gameTableStore: GameTableStoreService) {}
 
   ngOnInit(): void {
     this.subs.add(
@@ -38,6 +42,10 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+  }
+
+  goToPlayerChat(playerId: string) {
+    this.gameTableStore.setCenterComponent(CenterComponentNameEnum.Chat, playerId);
   }
 
   private setupPlayers(state: GameStateDto) {
@@ -66,6 +74,7 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
           toolTip: player.character?.name,
           priority: player.character?.firstNightPriority,
           isDead: player.isDead,
+          playerId: player.playerId,
         };
       });
       if (state.gameMeta.playerCount > 6) {
@@ -75,6 +84,7 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
           toolTip: 'Minion Info',
           priority: 0.5,
           isDead: false,
+          playerId: '',
         });
         this.nightRows.push({
           characterImage: 'D',
@@ -82,6 +92,7 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
           toolTip: 'Demon Info',
           priority: 1.5,
           isDead: false,
+          playerId: '',
         });
         this.nightRows = _.sortBy(this.nightRows, (x) => x?.priority);
       }
@@ -101,6 +112,7 @@ export class RightSideNightSheetComponent implements OnInit, OnDestroy {
           toolTip: player.character?.name,
           priority: player.character?.otherNightPriority,
           isDead: player.isDead,
+          playerId: player.playerId,
         };
       });
     }

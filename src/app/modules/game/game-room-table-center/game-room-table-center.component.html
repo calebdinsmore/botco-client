@@ -19,7 +19,7 @@
     <app-table-center-voting-display></app-table-center-voting-display>
   </div>
   <div *ngSwitchCase="centerComponentNameEnum.Chat">
-    <app-table-center-chat></app-table-center-chat>
+    <app-table-center-chat [playerId]="gameTableStore.centerComponentPayload"></app-table-center-chat>
   </div>
   <div *ngSwitchDefault>Something else</div>
   <div

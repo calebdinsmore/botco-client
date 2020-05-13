@@ -4,6 +4,9 @@
     <div *ngIf="nightRow" class="mv-10" fxLayout="row" fxLayoutAlign="start center">
       <div class="mr-10 token-container grey-token" fxLayout="row" fxLayoutAlign="center center">
         <img *ngIf="nightRow.characterImage.length > 1" draggable="false" [src]="nightRow.characterImage" />
+        <div class="comment-icon" (click)="goToPlayerChat(nightRow.playerId)">
+          <i class="fas fa-comments"></i>
+        </div>
         <span class="info-label" *ngIf="nightRow.characterImage.length === 1">{{ nightRow.characterImage }}</span>
       </div>
       <span [innerHTML]="nightRow.reminderText"></span>
