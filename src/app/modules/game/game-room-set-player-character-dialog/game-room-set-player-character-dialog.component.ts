@@ -46,22 +46,21 @@ export class GameRoomSetPlayerCharacterDialogComponent implements OnInit {
 
   open(player: PlayerDto) {
     this.player = player;
-    this.selectCharacter(player.character);
+    if (this.player.character) {
+      this.clearSelected();
+      this.selectCharacter(player.character);
+    }
     this.show = true;
   }
 
   selectionChange(character: CharacterDto) {
+    this.clearSelected();
     this.selectCharacter(character);
   }
 
   selectCharacter(character: CharacterDto) {
     this.selectedCharacter = character;
     _.find(this.characters, (x) => x.name === this.selectedCharacter.name)._selected = true;
-    this.characters
-      .filter((x) => x.name !== character.name)
-      .forEach((notCharacter) => {
-        notCharacter._selected = false;
-      });
   }
 
   cancel() {
@@ -76,5 +75,11 @@ export class GameRoomSetPlayerCharacterDialogComponent implements OnInit {
       characterSet: this.characterSet,
     } as ChangePlayerCharacterPayloadDto);
     this.show = false;
+  }
+
+  private clearSelected() {
+    this.characters.forEach((character) => {
+      character._selected = false;
+    });
   }
 }
