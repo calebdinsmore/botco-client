@@ -19,4 +19,8 @@ export class AppStorageService {
   set<T>(key: AppStorageKeysEnum, value: T) {
     this.localStorageService.set(key, value);
   }
+
+  remove(key: AppStorageKeysEnum) {
+    this.localStorageService.remove(key);
+  }
 }

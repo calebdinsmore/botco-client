@@ -1,4 +1,7 @@
 <div class="controls-container">
+  <div class="menu-cog" (click)="menu.open()">
+    <i class="fas fa-cog"></i>
+  </div>
   <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
     <button pButton label="Reference" (click)="referenceDialog.open()"></button>
     <button
@@ -80,3 +83,4 @@
   </div>
 </div>
 <app-game-room-reference #referenceDialog></app-game-room-reference>
+<app-game-room-menu #menu></app-game-room-menu>

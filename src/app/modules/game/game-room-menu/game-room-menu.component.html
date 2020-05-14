@@ -1,0 +1,14 @@
+<p-dialog header="Player Menu" [modal]="true" [(visible)]="show">
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <button pButton class="ui-button-danger" label="Leave" (click)="leaveRoom()"></button>
+    <button
+      *ngIf="gameStateHelper.isStoryteller(roomService.getRoom() | async)"
+      pButton
+      class="ui-button-danger"
+      label="Restart Game"
+      (click)="restartGame()"
+    ></button>
+  </div>
+</p-dialog>
+
+<p-confirmDialog key="leaveOrRestart" header="Are you sure?" icon="pi pi-exclamation-triangle"></p-confirmDialog>

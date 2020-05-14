@@ -1,5 +1,9 @@
 <div class="controls-container">
+  <div class="menu-cog" fxLayout="row" fxLayoutAlign="start center" (click)="menu.open()">
+    <i class="fas fa-cog"></i>
+  </div>
   <button pButton label="Reference" (click)="referenceDialog.open()"></button>
 </div>
 
 <app-game-room-reference #referenceDialog></app-game-room-reference>
+<app-game-room-menu #menu></app-game-room-menu>

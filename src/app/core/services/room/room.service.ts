@@ -72,6 +72,12 @@ export class RoomService {
       });
   }
 
+  leaveRoom() {
+    this.room.leave();
+    this.roomSubject.next({} as Room);
+    this.appStorageService.remove(AppStorageKeysEnum.SessionId);
+  }
+
   registerMessageCallback<T = any>(type: string | number, callback: (message: T) => void) {
     this.room.onMessage(type, callback);
   }
@@ -114,6 +120,9 @@ export class RoomService {
     });
     this.room.onMessage(ClientMessageTypeEnum.StaticGameData, (message) => {
       this.staticGameDataSubject.next(message);
+    });
+    this.room.onMessage(ClientMessageTypeEnum.RefreshPage, () => {
+      location.reload();
     });
     this.room.onMessage(ClientMessageTypeEnum.Notification, (message: NotificationPayloadDto) => {
       switch (message.type) {

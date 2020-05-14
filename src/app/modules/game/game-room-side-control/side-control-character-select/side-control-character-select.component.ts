@@ -45,6 +45,7 @@ export class SideControlCharacterSelectComponent implements OnInit, OnChanges {
 
   confirm() {
     this.confirmationService.confirm({
+      key: 'confirmSetCharacters',
       message: 'This will lock the room to new players. Do you want to proceed?',
       accept: () => {
         this.sendSetCharactersCommand();

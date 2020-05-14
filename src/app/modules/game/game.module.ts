@@ -25,6 +25,7 @@ import { SideControlCharacterSetSelectComponent } from './game-room-side-control
 import { GameRoomReferenceComponent } from './game-room-reference/game-room-reference.component';
 import { ReferenceCharacterSheetComponent } from './game-room-reference/reference-character-sheet/reference-character-sheet.component';
 import { GameRoomPlayerControlsComponent } from './game-room-player-controls/game-room-player-controls.component';
+import { GameRoomMenuComponent } from './game-room-menu/game-room-menu.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { GameRoomPlayerControlsComponent } from './game-room-player-controls/gam
     GameRoomReferenceComponent,
     ReferenceCharacterSheetComponent,
     GameRoomPlayerControlsComponent,
+    GameRoomMenuComponent,
   ],
   imports: [SharedModule],
   exports: [GameRoomComponent],

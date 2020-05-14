@@ -70,6 +70,7 @@ export class GameRoomSetPlayerCharacterDialogComponent implements OnInit {
 
   save() {
     this.roomService.sendCommand(CommandsEnum.ChangePlayerCharacter, {
+      key: 'confirmChangeCharacter',
       playerId: this.player.playerId,
       characterName: this.selectedCharacter.name,
       characterSet: this.characterSet,
