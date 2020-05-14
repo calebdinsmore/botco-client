@@ -16,8 +16,7 @@
     dead: player?.isDead
   }"
   [pDraggableDisabled]="
-    (roomService.getState() | async).storyteller?.playerId !==  (roomService.getRoom() | async).sessionId ||
-    (roomService.getState() | async).gamePhase !== gamePhaseEnum?.PreGame
+    (roomService.getState() | async).storyteller?.playerId !==  (roomService.getRoom() | async).sessionId
   "
   (onDragStart)="dragStart($event)"
   (onDrop)="tokenDropped()"

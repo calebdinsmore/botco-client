@@ -102,15 +102,13 @@ export class GameRoomGameControlsComponent implements OnInit, OnDestroy {
             characterImage: player.character?.image,
             showWarning: player.hasBeenNominated,
           });
-          if (!player.isDead) {
-            this.nominatorPlayerItems.push({
-              label: player.username,
-              value: player.playerId,
-              icon: player.fallbackIcon,
-              characterImage: player.character?.image,
-              showWarning: player.hasNominated,
-            });
-          }
+          this.nominatorPlayerItems.push({
+            label: player.username,
+            value: player.playerId,
+            icon: player.fallbackIcon,
+            characterImage: player.character?.image,
+            showWarning: player.hasNominated || player.isDead,
+          });
         }
       }
     }
