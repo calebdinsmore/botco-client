@@ -52,7 +52,6 @@ export class TableCenterChatComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.playerId);
     if (this.playerId && this.chatRooms) {
       this.selectChatRoomFromPlayerId();
     }

@@ -113,7 +113,6 @@ export class RoomService {
       this.state.next(this.room.state);
     });
     this.room.onMessage(ClientMessageTypeEnum.StaticGameData, (message) => {
-      console.log(message);
       this.staticGameDataSubject.next(message);
     });
     this.room.onMessage(ClientMessageTypeEnum.Notification, (message: NotificationPayloadDto) => {

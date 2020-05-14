@@ -63,7 +63,10 @@
       "
       pButton
       class="ui-button-danger mb-10"
-      [disabled]="(roomService.getState() | async).votingSchema?.votePhase === votePhaseEnum.PreVote"
+      [disabled]="
+        (roomService.getState() | async).votingSchema?.votePhase === votePhaseEnum.PreVote ||
+        gameStateHelper.currentPlayer(roomService.getRoom() | async).handLocked
+      "
       [label]="gameStateHelper.currentPlayer(roomService.getRoom() | async).handRaised ? 'Retract Vote' : 'Vote Yea'"
       (click)="toggleHand()"
     ></button>

@@ -16,6 +16,7 @@ export interface PlayerDto {
   hasNominated: boolean;
   hasBeenNominated: boolean;
   handRaised: boolean;
+  handLocked: boolean;
   isStoryteller: boolean;
   storytellerSessionId: string;
 }

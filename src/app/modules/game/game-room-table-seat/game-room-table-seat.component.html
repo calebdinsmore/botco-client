@@ -57,16 +57,24 @@
     <img draggable="false" [src]="reminderToken?.character.image" />
   </div>
   <div class="hand-container" [hidden]="!player?.handRaised">
-    <div class="raised-hand" fxLayout="column" fxLayoutAlign="center center">
+    <div class="raised-hand retain-color" fxLayout="column" fxLayoutAlign="center center">
       <div>
-        <i class="fas fa-thumbs-up"></i>
+        <i
+          class="retain-color fas fa-thumbs-up"
+          [ngClass]="{ warning: !!((roomService.getState() | async).votingSchema?.voteWarnings)[player?.playerId] }"
+          [pTooltip]="
+            !!((roomService.getState() | async).votingSchema?.voteWarnings)[player?.playerId]
+              ? 'Player may have voted when not allowed'
+              : undefined
+          "
+        ></i>
       </div>
     </div>
   </div>
   <div class="dead-vote-container" [hidden]="!player?.isDead || !player?.canVote">
     <div class="raised-hand" fxLayout="column" fxLayoutAlign="center center">
       <div>
-        <i class="fas fa-vote-yea"></i>
+        <i class="retain-color fas fa-vote-yea"></i>
       </div>
     </div>
   </div>

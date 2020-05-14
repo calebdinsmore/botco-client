@@ -79,7 +79,6 @@ export class SideControlCharacterSelectComponent implements OnInit, OnChanges {
 
     this.warningsMap.clear();
     for (const char of this.characters.filter((x) => x._selected)) {
-      console.log(char);
       if (char.setup) {
         switch (char.name) {
           case 'Drunk':
