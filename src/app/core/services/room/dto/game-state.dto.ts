@@ -7,6 +7,7 @@ import { ReminderTokenDto } from './reminder-token.dto';
 import { CharacterSetEnum } from './enum/character-set.enum';
 
 export interface GameStateDto {
+  isLocked: boolean;
   players: MapSchema<PlayerDto>;
   isDay: boolean;
   storyteller: PlayerDto;

@@ -3,6 +3,12 @@
     <i class="fas fa-cog"></i>
   </div>
   <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+    <button
+      pButton
+      pTooltip="Toggle the room lock (prevents players from joining)."
+      icon="fas {{ (roomService.getState() | async).isLocked ? 'fa-lock' : 'fa-lock-open' }}"
+      (click)="toggleRoomLock()"
+    ></button>
     <button pButton label="Reference" (click)="referenceDialog.open()"></button>
     <button
       pButton

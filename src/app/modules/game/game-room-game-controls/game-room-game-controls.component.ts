@@ -60,6 +60,10 @@ export class GameRoomGameControlsComponent implements OnInit, OnDestroy {
     this.nominatingPlayerId = null;
   }
 
+  toggleRoomLock() {
+    this.roomService.sendCommand(CommandsEnum.ToggleRoomLock, {});
+  }
+
   private getNextPhaseLabel() {
     if (this.state) {
       switch (this.state.nextGamePhase) {
