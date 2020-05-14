@@ -131,5 +131,14 @@ export class RoomService {
           break;
       }
     });
+    this.room.onLeave((code) => {
+      if (code > 1000) {
+        console.log('code', code);
+        console.log('attempting reconnect');
+        this.attemptReconnect(this.room.id).then((success) => {
+          console.log(success);
+        });
+      }
+    });
   }
 }
