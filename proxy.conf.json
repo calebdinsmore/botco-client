@@ -1,6 +1,6 @@
 {
-  "/api/*": {
-    "target": "http://localhost:3000",
+  "/sock-js/*": {
+    "target": "http://localhost:2567",
     "secure": false,
     "logLevel": "debug"
   }

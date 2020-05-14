@@ -82,9 +82,12 @@ export class RoomService {
     this.room.onMessage(type, callback);
   }
 
-  async attemptReconnect(roomCode: string): Promise<boolean> {
+  async attemptReconnect(roomCode: string = null): Promise<boolean> {
+    if (!roomCode) {
+      roomCode = this.appStorageService.getString(AppStorageKeysEnum.CurrentRoomCode);
+    }
     const sessionId = this.appStorageService.getString(AppStorageKeysEnum.SessionId);
-    if (sessionId) {
+    if (roomCode && sessionId) {
       try {
         const room = await this.colyseusClient.reconnect<GameStateDto>(roomCode, sessionId);
         this.initSubjects(room);
@@ -133,10 +136,19 @@ export class RoomService {
     });
     this.room.onLeave((code) => {
       if (code > 1000) {
-        console.log('code', code);
-        console.log('attempting reconnect');
-        this.attemptReconnect(this.room.id).then((success) => {
-          console.log(success);
+        this.notificationService.warn(
+          'Connection Error',
+          'Unexpectedly disconnected from server. Attempting to reconnect...'
+        );
+        this.attemptReconnect().then((success) => {
+          if (!success) {
+            this.notificationService.warn('Connection Error', 'Attempting to reconnect again...');
+            this.attemptReconnect().then((successSecond) => {
+              if (!successSecond) {
+                location.reload();
+              }
+            });
+          }
         });
       }
     });
