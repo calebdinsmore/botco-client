@@ -53,6 +53,10 @@ export class GameTableStoreService extends ObservableStore<GameTableStoreState> 
     );
   }
 
+  setCenterComponentPayload(centerComponentPayload: string) {
+    this.setState({ centerComponentPayload }, GameTableStoreActionsEnum.SetCenterComponentPayload);
+  }
+
   setDraggedReminderToken(reminderTokenId: string) {
     return this.setState(
       { draggedReminderTokenId: reminderTokenId },

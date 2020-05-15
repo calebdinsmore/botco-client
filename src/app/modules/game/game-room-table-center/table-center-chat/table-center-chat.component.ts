@@ -85,6 +85,8 @@ export class TableCenterChatComponent implements OnInit, OnChanges {
       this.deselectChatRoom();
       setTimeout(() => {
         if (chatRoom) {
+          // unset the playerId in the payload since it is no longer needed
+          this.gameTableStore.setCenterComponentPayload(null);
           this.selectChatRoom(chatRoom);
         }
       });
