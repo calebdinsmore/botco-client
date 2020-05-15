@@ -136,13 +136,12 @@ export class RoomService {
     });
     this.room.onLeave((code) => {
       if (code > 1000) {
-        this.notificationService.warn(
-          'Connection Error',
-          'Unexpectedly disconnected from server. Attempting to reconnect...'
-        );
         this.attemptReconnect().then((success) => {
           if (!success) {
-            this.notificationService.warn('Connection Error', 'Attempting to reconnect again...');
+            this.notificationService.warn(
+              'Connection Error',
+              'Struggling to reconnect. Attempting to reconnect again...'
+            );
             this.attemptReconnect().then((successSecond) => {
               if (!successSecond) {
                 location.reload();

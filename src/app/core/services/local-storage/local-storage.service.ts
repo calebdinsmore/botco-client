@@ -7,26 +7,26 @@ export class LocalStorageService {
   constructor() {}
 
   getString(key: string) {
-    return sessionStorage.getItem(key);
+    return localStorage.getItem(key);
   }
 
   getObject(key: string) {
-    if (sessionStorage.getItem(key)) {
-      return JSON.parse(sessionStorage.getItem(key));
+    if (localStorage.getItem(key)) {
+      return JSON.parse(localStorage.getItem(key));
     }
 
     return undefined;
   }
 
   set<T>(key: string, value: T) {
-    sessionStorage.setItem(key, value.toString());
+    localStorage.setItem(key, value.toString());
   }
 
   remove(key: string) {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
   }
 
   clear() {
-    sessionStorage.clear();
+    localStorage.clear();
   }
 }
