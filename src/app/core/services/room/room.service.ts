@@ -117,25 +117,6 @@ export class RoomService {
     this.room.onMessage('error', (message) => {
       this.notificationService.error(message);
     });
-    this.room.onMessage('grimoire_snapshot', (message) => {
-      this.state.next(message);
-    });
-    this.room.onMessage('reset_state', () => {
-      this.state.next(this.room.state);
-    });
-    this.room.onMessage(ClientMessageTypeEnum.StaticGameData, (message) => {
-      this.staticGameDataSubject.next(message);
-    });
-    this.room.onMessage(ClientMessageTypeEnum.RefreshPage, () => {
-      location.reload();
-    });
-    this.room.onMessage(ClientMessageTypeEnum.Notification, (message: NotificationPayloadDto) => {
-      switch (message.type) {
-        case NotificationTypeEnum.Info:
-          this.notificationService.info(message.detail, message.summary);
-          break;
-      }
-    });
     this.room.onLeave((code) => {
       if (code > 1000) {
         this.attemptReconnect().then((success) => {
@@ -153,6 +134,29 @@ export class RoomService {
         });
       } else {
         this.router.navigate(['']);
+      }
+    });
+    this.setupSpecialMessageHandlers();
+  }
+
+  private setupSpecialMessageHandlers() {
+    this.room.onMessage('grimoire_snapshot', (message) => {
+      this.state.next(message);
+    });
+    this.room.onMessage('reset_state', () => {
+      this.state.next(this.room.state);
+    });
+    this.room.onMessage(ClientMessageTypeEnum.StaticGameData, (message) => {
+      this.staticGameDataSubject.next(message);
+    });
+    this.room.onMessage(ClientMessageTypeEnum.RefreshPage, () => {
+      location.reload();
+    });
+    this.room.onMessage(ClientMessageTypeEnum.Notification, (message: NotificationPayloadDto) => {
+      switch (message.type) {
+        case NotificationTypeEnum.Info:
+          this.notificationService.info(message.detail, message.summary);
+          break;
       }
     });
   }
