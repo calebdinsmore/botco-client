@@ -4,7 +4,7 @@
   fxLayoutAlign="center center"
   [ngClass]="{ dead: player?.isDead }"
 >
-  <div *ngIf="player && player.connected" fxLayout="column" fxLayoutAlign="center center">
+  <div *ngIf="player" fxLayout="column" fxLayoutAlign="center center">
     <div *ngIf="player.character; else unknownCharacter">
       <img draggable="false" [src]="player.character.image" />
     </div>

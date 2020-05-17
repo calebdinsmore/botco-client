@@ -27,34 +27,34 @@
   <div class="status-icons" fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center center">
     <div>
       <span class="number-label mr-5">{{ (roomService.getState() | async).gameMeta?.playerCount }}</span>
-      <i class="players fas fa-users"></i>
+      <i class="players fas fa-users" pTooltip="Connected Players"></i>
     </div>
     <div>
       <span class="number-label mr-5">{{ gameStateHelper.livingPlayerCount(roomService.getState() | async) }}</span>
-      <i class="alive fas fa-heartbeat"></i>
+      <i class="alive fas fa-heartbeat" pTooltip="Living Players"></i>
     </div>
     <div>
       <span class="number-label mr-5">{{ gameStateHelper.votesAvailable(roomService.getState() | async) }}</span>
-      <i class="votes fas fa-vote-yea"></i>
+      <i class="votes fas fa-vote-yea" pTooltip="Available Votes"></i>
     </div>
   </div>
 
   <div class="status-icons" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
     <div>
       <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfTownsfolk }}</span>
-      <i class="townsfolk fas fa-user-friends"></i>
+      <i class="townsfolk fas fa-user-friends" pTooltip="Townsfolk"></i>
     </div>
     <div>
       <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfOutsiders }}</span>
-      <i class="outsiders fas fa-user"></i>
+      <i class="outsiders fas fa-user" pTooltip="Outsiders"></i>
     </div>
     <div>
       <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfMinions }}</span>
-      <i class="minions fas fa-user"></i>
+      <i class="minions fas fa-user" pTooltip="Minions"></i>
     </div>
     <div>
       <span class="mr-5">{{ (roomService.getState() | async).gameMeta?.numberOfDemons }}</span>
-      <i class="demons fas fa-user"></i>
+      <i class="demons fas fa-user" pTooltip="Demons"></i>
     </div>
   </div>
 
@@ -67,11 +67,11 @@
   >
     <div>
       <span class="mr-5"> {{ gameStateHelper.getPlayerToBeExecuted(roomService.getState() | async)?.username }}</span>
-      <i class="fas fa-skull"></i>
+      <i class="fas fa-skull" pTooltip="To Be Executed"></i>
     </div>
     <div>
       <span class="mr-5">{{ (roomService.getState() | async).votingSchema.votesToExecute }}</span>
-      <i class="fas fa-vote-yea alive"></i>
+      <i class="fas fa-vote-yea alive" pTooltip="Votes to Execute"></i>
     </div>
   </div>
 

@@ -5,6 +5,7 @@ import { CharacterDto } from './character.dto';
 export interface PlayerDto {
   playerId: string;
   connected: boolean;
+  inactive: boolean;
   username: string;
   seatNumber: number;
   character: CharacterDto;

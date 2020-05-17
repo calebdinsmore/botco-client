@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 import { ClientMessageTypeEnum } from './dto/enum/client-message-type.enum';
 import { NotificationPayloadDto } from './dto/notification-payload.dto';
 import { NotificationTypeEnum } from './dto/enum/notification-type.enum';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,8 @@ export class RoomService {
   constructor(
     private colyseusClient: ColyseusClientService,
     private appStorageService: AppStorageService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
   ) {}
 
   getState() {
@@ -149,6 +151,8 @@ export class RoomService {
             });
           }
         });
+      } else {
+        this.router.navigate(['']);
       }
     });
   }

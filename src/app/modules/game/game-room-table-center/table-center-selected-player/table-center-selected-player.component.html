@@ -10,10 +10,18 @@
     <div *ngIf="(roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId">
       <app-game-room-reminder-summary [playerId]="playerId"></app-game-room-reminder-summary>
     </div>
-    <div class="player-action-buttons" *ngIf="gameStateHelper.isStoryteller(roomService.getRoom() | async)">
-      <button pButton label="Edit" (click)="editDialog.edit(player)"></button>
-      <button pButton label="Send Message"></button>
-      <button pButton label="Edit Character" (click)="editCharacter.open(player)"></button>
+    <div
+      *ngIf="gameStateHelper.isStoryteller(roomService.getRoom() | async)"
+      class="action-buttons"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayoutGap="5px"
+    >
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <button pButton icon="fas fa-edit" pTooltip="Edit Player Info" (click)="editDialog.edit(player)"></button>
+        <button pButton icon="fas fa-comment" pTooltip="Send Message" (click)="openPlayerChat(player)"></button>
+        <button pButton icon="fas fa-user-edit" pTooltip="Edit Character" (click)="editCharacter.open(player)"></button>
+      </div>
       <button
         pButton
         class="ui-button-danger"
@@ -26,6 +34,7 @@
         [label]="canSeeGrimoire ? 'Hide Grimoire' : 'Reveal Grimoire'"
         (click)="toggleGrimoire()"
       ></button>
+      <button pButton class="ui-button-danger" label="Remove Player" (click)="removePlayer()"></button>
     </div>
   </div>
 </p-scrollPanel>

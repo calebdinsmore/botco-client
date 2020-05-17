@@ -16,11 +16,12 @@
   </div>
 
   <div
-    gdArea="bottom"
     *ngIf="
       (roomService.getState() | async).storyteller?.playerId === (roomService.getRoom() | async).sessionId;
       else playerControls
     "
+    class="mt-10"
+    gdArea="bottom"
     fxLayout="row"
     fxLayoutAlign="center center"
   >
@@ -28,7 +29,7 @@
   </div>
 
   <ng-template #playerControls>
-    <div gdArea="bottom" fxLayout="row" fxLayoutAlign="center center">
+    <div gdArea="bottom" class="mt-10" fxLayout="row" fxLayoutAlign="center center">
       <app-game-room-player-controls></app-game-room-player-controls>
     </div>
   </ng-template>

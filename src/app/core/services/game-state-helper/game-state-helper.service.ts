@@ -67,17 +67,7 @@ export class GameStateHelperService {
   }
 
   livingPlayerCount(state: GameStateDto) {
-    let count = 0;
-    if (state?.players) {
-      for (let id in state.players) {
-        if (state.players.hasOwnProperty(id)) {
-          if (!state.players[id].isDead) {
-            count++;
-          }
-        }
-      }
-    }
-    return count;
+    return this.countMapSchemaUsingCallback(state?.players, (x) => !x.inactive && !x.isDead);
   }
 
   myPlayerId(room: Room<GameStateDto>) {
@@ -96,7 +86,7 @@ export class GameStateHelperService {
   }
 
   votesAvailable(state: GameStateDto) {
-    return this.countMapSchemaUsingCallback(state?.players, (x) => x.canVote);
+    return this.countMapSchemaUsingCallback(state?.players, (x) => x.canVote && !x.inactive);
   }
 
   totalHandsRaised(state: GameStateDto) {
