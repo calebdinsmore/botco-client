@@ -59,6 +59,15 @@
   </div>
 
   <div
+    class="mt-10"
+    *ngIf="(roomService.getState() | async).votingSchema?.nominatedPlayerId"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <button pButton label="Return to Vote" (click)="returnToVote()"></button>
+  </div>
+
+  <div
     *ngIf="(roomService.getState() | async).votingSchema?.playerToBeExecutedId"
     class="execution-icons mt-10"
     fxLayout="row"
