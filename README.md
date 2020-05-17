@@ -9,6 +9,10 @@ npm run start
 
 ## Important Things to Know
 
+### My Component Directory Organization Makes No Sense
+
+Sorry
+
 ### Server Authoritative State
 
 In this app, the server is the single source of truth for the game state, and clients are dumb representations of it. The only means by which clients can modify state is by sending commands to the server, which validates those commands and modifies state as is appropriate. All of the commands the client can send that the server accepts are found in `commands.enum.ts`.
