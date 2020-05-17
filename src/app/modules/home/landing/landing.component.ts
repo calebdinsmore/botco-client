@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { CreateRoomDto } from 'src/app/core/services/room/dto/create-room.dto';
 import { AppStorageKeysEnum } from 'src/app/core/services/app-storage/app-storage-keys-enum';
 import { Router } from '@angular/router';
+import { JoinOptionsDto } from 'src/app/core/services/room/dto/join-options.dto';
 
 @Component({
   selector: 'app-landing',
@@ -34,7 +35,12 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.roomService.createRoom(formValue.username);
   }
 
-  joinRoom(formValue: { username: string; roomCode: string }) {
-    this.roomService.joinRoom(formValue.username, formValue.roomCode.toUpperCase());
+  joinRoom(formValue: { username: string; roomCode: string; spectator: boolean }) {
+    const options = {
+      username: formValue.username,
+      spectator: formValue.spectator,
+    } as JoinOptionsDto;
+    console.log(options);
+    this.roomService.joinRoom(formValue.roomCode.toUpperCase(), options);
   }
 }

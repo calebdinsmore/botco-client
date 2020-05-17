@@ -41,6 +41,9 @@
             required
           />
         </div>
+        <div class="mb-10">
+          <p-checkbox name="spectator" ngModel [binary]="true" label="Spectate"></p-checkbox>
+        </div>
         <button pButton [disabled]="!f.valid" type="submit" label="Join Room"></button>
       </form>
     </div>

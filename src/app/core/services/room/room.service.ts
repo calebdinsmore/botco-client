@@ -62,9 +62,9 @@ export class RoomService {
       });
   }
 
-  joinRoom(username: string, roomCode: string) {
+  joinRoom(roomCode: string, joinOptions: JoinOptionsDto) {
     this.colyseusClient
-      .joinById<GameStateDto>(roomCode, { username } as JoinOptionsDto)
+      .joinById<GameStateDto>(roomCode, joinOptions)
       .then((room) => {
         this.initSubjects(room);
         this.appStorageService.set(AppStorageKeysEnum.SessionId, room.sessionId);
