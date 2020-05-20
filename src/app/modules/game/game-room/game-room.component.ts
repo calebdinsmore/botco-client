@@ -21,7 +21,6 @@ export class GameRoomComponent implements OnInit, OnDestroy {
     this.subs.add(
       paramsStream.subscribe(([routeParams, queryParams]) => {
         if (routeParams.id && !this.roomService.isConnected) {
-          console.log(routeParams.id, queryParams.sessionId);
           this.roomService.attemptReconnect(routeParams.id, queryParams.sessionId).then((success) => {
             if (!success) {
               this.router.navigate(['']);
