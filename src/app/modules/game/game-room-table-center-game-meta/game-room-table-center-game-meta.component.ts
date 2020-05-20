@@ -12,17 +12,40 @@ import { CenterComponentNameEnum } from 'src/app/core/stores/game-table-store/en
   templateUrl: './game-room-table-center-game-meta.component.html',
   styleUrls: ['./game-room-table-center-game-meta.component.less'],
 })
-export class GameRoomTableCenterGameMetaComponent implements OnInit {
+export class GameRoomTableCenterGameMetaComponent implements OnInit, OnDestroy {
   @Input() playerMap: Map<number, PlayerDto>;
   gamePhaseEnum = GamePhaseEnum;
+  joinButtonLabel = 'Copy Join Link';
+  joinLink: string;
 
+  private subs = new Subscription();
   constructor(
     public roomService: RoomService,
     public gameStateHelper: GameStateHelperService,
     private gameTableStore: GameTableStoreService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subs.add(
+      this.roomService.getRoom().subscribe((room) => {
+        this.joinLink = `${location.origin}/join/${room.id}`;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
+  copySuccess() {
+    this.joinButtonLabel = 'Copied!';
+    setTimeout(() => (this.joinButtonLabel = 'Copy Join Link'), 5000);
+  }
+
+  copyError() {
+    this.joinButtonLabel = 'Failed to Copy';
+    setTimeout(() => (this.joinButtonLabel = 'Copy Join Link'), 5000);
+  }
 
   returnToVote() {
     this.gameTableStore.setCenterComponent(CenterComponentNameEnum.VotingDisplay);

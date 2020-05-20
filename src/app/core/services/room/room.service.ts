@@ -62,11 +62,12 @@ export class RoomService {
       });
   }
 
-  joinRoom(roomCode: string, joinOptions: JoinOptionsDto) {
-    this.colyseusClient
+  joinRoom(roomCode: string, joinOptions: JoinOptionsDto): Promise<void | Room<GameStateDto>> {
+    return this.colyseusClient
       .joinById<GameStateDto>(roomCode, joinOptions)
       .then((room) => {
         this.initSubjects(room);
+        return room;
       })
       .catch((error) => {
         this.notificationService.error(error);

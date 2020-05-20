@@ -42,7 +42,6 @@ export class LandingComponent implements OnInit, OnDestroy {
       username: formValue.username,
       spectator: formValue.spectator,
     } as JoinOptionsDto;
-    console.log(options);
     this.roomService.joinRoom(formValue.roomCode.toUpperCase(), options);
   }
 

@@ -4,8 +4,17 @@
       *ngIf="(roomService.getState() | async).gamePhase === gamePhaseEnum.PreGame; else currentPhase"
       legend="Room Code"
     >
-      <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxLayout="column" fxLayoutAlign="center center">
         <span class="room-code">{{ (roomService.getRoom() | async).id }}</span>
+        <button
+          ngxClipboard
+          *ngxClipboardIfSupported
+          pButton
+          [label]="joinButtonLabel"
+          [cbContent]="joinLink"
+          (cbOnSuccess)="copySuccess()"
+          (cbOnError)="copyError()"
+        ></button>
       </div>
     </p-fieldset>
     <ng-template #currentPhase>

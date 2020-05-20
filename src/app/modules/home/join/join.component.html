@@ -1,0 +1,30 @@
+<div class="landing-container" fxLayout="column" fxLayoutAlign="center center">
+  <p-card>
+    <p-header>
+      <div class="logo-header">
+        <img src="assets/images/logo.png" />
+      </div>
+    </p-header>
+    <div>
+      <h2>Join Room {{ (route.params | async).id }}</h2>
+      <form #joinForm="ngForm" (ngSubmit)="joinRoom(joinForm.value)">
+        <div class="ui-inputgroup ui-fluid mb-10">
+          <span class="ui-inputgroup-addon"><i class="fas fa-signature"></i></span>
+          <input
+            ngModel
+            type="text"
+            pInputText
+            maxlength="12"
+            name="username"
+            placeholder="Display Name (Max 12 Characters)"
+            required
+          />
+        </div>
+        <div class="mb-10">
+          <p-checkbox name="spectator" ngModel [binary]="true" label="Spectate"></p-checkbox>
+        </div>
+        <button pButton [disabled]="!joinForm.valid || !roomId" type="submit" label="Join Room"></button>
+      </form>
+    </div>
+  </p-card>
+</div>

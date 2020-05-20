@@ -27,6 +27,7 @@
     "@types/lodash": "^4.14.150",
     "colyseus.js": "^0.13.0",
     "lodash": "^4.17.15",
+    "ngx-clipboard": "^13.0.1",
     "ngx-socket-io": "^3.0.1",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.6",

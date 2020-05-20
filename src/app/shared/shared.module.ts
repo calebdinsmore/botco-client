@@ -21,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TabViewModule } from 'primeng/tabview';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [InitialsPipe],
@@ -44,6 +45,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     CheckboxModule,
     TabViewModule,
     InputTextareaModule,
+    ClipboardModule,
   ],
   exports: [
     CommonModule,
@@ -66,6 +68,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     CheckboxModule,
     TabViewModule,
     InputTextareaModule,
+    ClipboardModule,
   ],
   providers: [InitialsPipe, MessageService, ConfirmationService],
 })
