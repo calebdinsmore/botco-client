@@ -161,6 +161,9 @@ export class RoomService {
         case NotificationTypeEnum.Info:
           this.notificationService.info(message.detail, message.summary);
           break;
+        case NotificationTypeEnum.Warn:
+          this.notificationService.warn(message.detail, message.summary);
+          break;
       }
     });
   }

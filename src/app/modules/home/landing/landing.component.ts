@@ -49,7 +49,8 @@ export class LandingComponent implements OnInit, OnDestroy {
   reconnectToRoom() {
     this.roomService.attemptReconnect().then((success) => {
       if (!success) {
-        this.appStorage.set(AppStorageKeysEnum.LastConnectedOn, null);
+        this.appStorage.remove(AppStorageKeysEnum.LastConnectedOn);
+        this.hasConnectedToday = false;
       }
     });
   }
