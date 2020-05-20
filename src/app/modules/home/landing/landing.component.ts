@@ -14,10 +14,12 @@ import { JoinOptionsDto } from 'src/app/core/services/room/dto/join-options.dto'
   styleUrls: ['./landing.component.less'],
 })
 export class LandingComponent implements OnInit, OnDestroy {
+  hasConnectedToday: boolean;
   private subs = new Subscription();
   constructor(private roomService: RoomService, private appStorage: AppStorageService, private router: Router) {}
 
   ngOnInit() {
+    this.getReconnectInfo();
     this.subs.add(
       this.roomService.getRoom().subscribe((room) => {
         if (room.id) {
@@ -42,5 +44,34 @@ export class LandingComponent implements OnInit, OnDestroy {
     } as JoinOptionsDto;
     console.log(options);
     this.roomService.joinRoom(formValue.roomCode.toUpperCase(), options);
+  }
+
+  reconnectToRoom() {
+    this.roomService.attemptReconnect().then((success) => {
+      if (!success) {
+        this.appStorage.set(AppStorageKeysEnum.LastConnectedOn, null);
+      }
+    });
+  }
+
+  private getReconnectInfo() {
+    const roomId = this.appStorage.getString(AppStorageKeysEnum.CurrentRoomCode);
+    const sessionId = this.appStorage.getString(AppStorageKeysEnum.SessionId);
+    const lastConnectedOn = this.appStorage.getString(AppStorageKeysEnum.LastConnectedOn);
+    if (roomId && sessionId && lastConnectedOn) {
+      if (this.lastConnectedToday(parseInt(lastConnectedOn, 10))) {
+        this.hasConnectedToday = true;
+      }
+    }
+  }
+
+  private lastConnectedToday(lastConnectedOn: number) {
+    const today = new Date();
+    const lastConnectedOnDate = new Date(lastConnectedOn);
+    return (
+      lastConnectedOnDate.getDate() === today.getDate() &&
+      lastConnectedOnDate.getMonth() === today.getMonth() &&
+      lastConnectedOnDate.getFullYear() === today.getFullYear()
+    );
   }
 }

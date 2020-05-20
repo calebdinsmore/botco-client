@@ -8,7 +8,6 @@ import { RoomService } from './../../../../core/services/room/room.service';
 import { PlayerDto } from './../../../../core/services/room/dto/player.dto';
 import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import { CommandsEnum } from 'src/app/core/services/room/dto/commands/commands.enum';
-import { NominatePlayerPayloadDto } from 'src/app/core/services/room/dto/commands/in-game/nominate-player-payload.dto';
 import { GameTableStoreService } from 'src/app/core/stores/game-table-store/game-table-store.service';
 import { CenterComponentNameEnum } from 'src/app/core/stores/game-table-store/enum/center-component-name.enum';
 import { RemovePlayerPayloadDto } from 'src/app/core/services/room/dto/commands/in-game/remove-player-payload.dto';

@@ -46,6 +46,13 @@
         </div>
         <button pButton [disabled]="!f.valid" type="submit" label="Join Room"></button>
       </form>
+      <div *ngIf="hasConnectedToday" class="mt-10">
+        <hr />
+        <div fxLayout="column">
+          <span class="mb-5">It looks like you were in a room recently. Reconnect?</span>
+          <button *ngIf="hasConnectedToday" pButton label="Reconnect" (click)="reconnectToRoom()"></button>
+        </div>
+      </div>
     </div>
   </p-card>
 </div>

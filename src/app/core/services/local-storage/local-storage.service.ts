@@ -10,9 +10,9 @@ export class LocalStorageService {
     return localStorage.getItem(key);
   }
 
-  getObject(key: string) {
+  getObject<T>(key: string) {
     if (localStorage.getItem(key)) {
-      return JSON.parse(localStorage.getItem(key));
+      return JSON.parse(localStorage.getItem(key)) as T;
     }
 
     return undefined;

@@ -12,8 +12,8 @@ export class AppStorageService {
     return this.localStorageService.getString(key);
   }
 
-  getObject(key: AppStorageKeysEnum) {
-    return this.localStorageService.getObject(key);
+  getObject<T>(key: AppStorageKeysEnum) {
+    return this.localStorageService.getObject<T>(key);
   }
 
   set<T>(key: AppStorageKeysEnum, value: T) {

@@ -67,7 +67,6 @@ export class RoomService {
       .joinById<GameStateDto>(roomCode, joinOptions)
       .then((room) => {
         this.initSubjects(room);
-        this.appStorageService.set(AppStorageKeysEnum.SessionId, room.sessionId);
       })
       .catch((error) => {
         this.notificationService.error(error);
@@ -84,11 +83,13 @@ export class RoomService {
     this.room.onMessage(type, callback);
   }
 
-  async attemptReconnect(roomCode: string = null): Promise<boolean> {
+  async attemptReconnect(roomCode: string = null, sessionId: string = null): Promise<boolean> {
     if (!roomCode) {
       roomCode = this.appStorageService.getString(AppStorageKeysEnum.CurrentRoomCode);
     }
-    const sessionId = this.appStorageService.getString(AppStorageKeysEnum.SessionId);
+    if (!sessionId) {
+      sessionId = this.appStorageService.getString(AppStorageKeysEnum.SessionId);
+    }
     if (roomCode && sessionId) {
       try {
         const room = await this.colyseusClient.reconnect<GameStateDto>(roomCode, sessionId);
@@ -103,6 +104,9 @@ export class RoomService {
   }
 
   private initSubjects(room: Room<GameStateDto>) {
+    this.appStorageService.set(AppStorageKeysEnum.CurrentRoomCode, room.id);
+    this.appStorageService.set(AppStorageKeysEnum.SessionId, room.sessionId);
+    this.appStorageService.set(AppStorageKeysEnum.LastConnectedOn, new Date().getTime());
     this.room = room;
     this.roomSubject.next(this.room);
     this.room.onStateChange((state) => {
