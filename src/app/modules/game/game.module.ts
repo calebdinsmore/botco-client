@@ -26,6 +26,7 @@ import { GameRoomReferenceComponent } from './game-room-reference/game-room-refe
 import { ReferenceCharacterSheetComponent } from './game-room-reference/reference-character-sheet/reference-character-sheet.component';
 import { GameRoomPlayerControlsComponent } from './game-room-player-controls/game-room-player-controls.component';
 import { GameRoomMenuComponent } from './game-room-menu/game-room-menu.component';
+import { GameControlsShotClockComponent } from './game-room-game-controls/game-controls-shot-clock/game-controls-shot-clock.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { GameRoomMenuComponent } from './game-room-menu/game-room-menu.component
     ReferenceCharacterSheetComponent,
     GameRoomPlayerControlsComponent,
     GameRoomMenuComponent,
+    GameControlsShotClockComponent,
   ],
   imports: [SharedModule],
   exports: [GameRoomComponent],

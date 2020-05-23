@@ -19,4 +19,6 @@ export interface GameStateDto {
   votingSchema: VotingDto;
   canSeeGrimoirePlayerId: string;
   characterSet: CharacterSetEnum;
+  shotClockSeconds: number;
+  shotClockIsPaused: boolean;
 }

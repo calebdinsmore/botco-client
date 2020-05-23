@@ -68,6 +68,16 @@
   </div>
 
   <div
+    class="mt-10 shot-clock"
+    *ngIf="(roomService.getState() | async).shotClockSeconds"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    [ngClass]="{ 'lt-two-minutes': (roomService.getState() | async).shotClockSeconds < 120 }"
+  >
+    <span>{{ (roomService.getState() | async).shotClockSeconds * 1000 | date: 'mm:ss':'UTC' }}</span>
+  </div>
+
+  <div
     class="mt-10"
     *ngIf="(roomService.getState() | async).votingSchema?.nominatedPlayerId"
     fxLayout="row"
