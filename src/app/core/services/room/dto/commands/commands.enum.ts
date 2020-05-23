@@ -18,6 +18,7 @@ export enum CommandsEnum {
   RestartGame = 'restart-game',
   ToggleRoomLock = 'toggle-room-lock',
   RemovePlayer = 'remove-player',
+  ControlShotClock = 'control-shot-clock',
 
   // Voting
   NominatePlayer = 'nominate-player',

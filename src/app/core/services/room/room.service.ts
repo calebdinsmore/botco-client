@@ -111,7 +111,7 @@ export class RoomService {
     this.room = room;
     this.roomSubject.next(this.room);
     this.room.onStateChange((state) => {
-      // console.log('State:', state);
+      console.log('State:', state);
       if (this.state.getValue().canSeeGrimoirePlayerId !== this.roomSubject.getValue().sessionId) {
         this.state.next(state);
       }

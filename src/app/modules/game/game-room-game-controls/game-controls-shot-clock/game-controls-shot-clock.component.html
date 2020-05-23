@@ -1,0 +1,26 @@
+<div *ngIf="!(roomService.getState() | async).shotClockSeconds; else controls">
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <p-spinner [(ngModel)]="minutes" [min]="0" [max]="60" [inputStyle]="{ 'max-width': '100px' }"></p-spinner>
+    <span>:</span>
+    <p-spinner [(ngModel)]="seconds" [min]="0" [max]="60" [inputStyle]="{ 'max-width': '100px' }"></p-spinner>
+    <button pButton icon="fas fa-play" (click)="startShotClock()"></button>
+  </div>
+</div>
+
+<ng-template #controls>
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <button
+      *ngIf="(roomService.getState() | async).shotClockIsPaused"
+      pButton
+      icon="fas fa-play"
+      (click)="resumeShotClock()"
+    ></button>
+    <button
+      *ngIf="!(roomService.getState() | async).shotClockIsPaused"
+      pButton
+      icon="fas fa-pause"
+      (click)="pauseShotClock()"
+    ></button>
+    <button pButton icon="fas fa-stop" (click)="stopShotClock()"></button>
+  </div>
+</ng-template>
